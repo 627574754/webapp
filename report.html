@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-用户报告</title>
+	<link rel="stylesheet" type="text/css" href="css/report.css" />
+	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<div class='report_head'>
+		<p class='title'>
+			<span class='user_name'><%=data.customerInfoDO.userName%></span>-<span class='bank_name'><%=data.customerInfoDO.bankNo%></span>-<span class='report_name'>资金流水报告</span>
+		</p>
+		<p class='report_opeartion'>
+			<a class='btn btn_print'>打印</a><a class='btn btn_download' href="customer/exportReport?cid=<%=data.customerInfoDO.id%>">下载</a>
+		</p>
+	</div>
+	<div class='report_content'>
+		<div class='report_content_module'>
+			<p class='report_content_module_title'><span class="report_content_module_title_icon"></span>用户基本信息</p>
+			<div class='report_content_module_content'>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<label class='row_itme_title'>银行账户：</label><span class='row_itme_content'><%=data.customerInfoDO.bankNo%></span>
+					</div>
+					<div class='row_right'>
+						<label class='row_itme_title'>银行户名：</label><span class='row_itme_content'><%=data.customerInfoDO.userName%></span>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<label class='row_itme_title'>证件类型：</label><span class='row_itme_content'>身份证</span>
+					</div>
+					<div class='row_right'>
+						<label class='row_itme_title'>证件号码：</label><span class='row_itme_content'><%=data.customerInfoDO.userNo%></span>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<label class='row_itme_title'>报告起始日期：</label><span class='row_itme_content'><%=data.customerInfoDO.startTime%></span>
+					</div>
+					<div class='row_right'>
+						<label class='row_itme_title'>报告结束日期：</label><span class='row_itme_content'><%=data.customerInfoDO.endTime%></span>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<label class='row_itme_title'>报告结果：</label><%=data.customerInfoDO.reportStatus%>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='report_content_module module_2'>
+			<p class='report_content_module_title'><span class="report_content_module_title_icon"></span>用户收支分析</p>
+			<div class='report_content_module_content'>
+				<div class='module_subtitle'><%=data.customerInfoDO.userName%>收入支出分析</div>
+				<div class='report_chart'></div>
+				<div class="legend_container"></div>
+			</div>
+		</div>
+		<div class='report_content_module module_3'>
+			<p class='report_content_module_title'><span class="report_content_module_title_icon"></span>流水明细</p>
+			<div class='report_content_module_content'>
+				<table class='result_table'>
+					<thead>
+						<tr>
+							<th style='width:50px'>编号</th>
+							<th>记账日期</th>
+							<th>货币</th>
+							<th>交易金额</th>
+							<th>结余</th>
+							<th style='width:240px'>备注</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%_.each(data.list, function(item) {%>
+						<tr>
+							<td><%=item.id%></td>
+							<td><%=item.recordTime%></td>
+							<td><%=item.type%></td>
+							<%=item.amount%>
+							<td><%=item.balance%></td>
+							<td><%=item.remark%></td>
+						</tr>
+						<%});%>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/jquery.flot.min.js'></script>
+<script src='js/common.js'></script>
+<script>
+	(function ($) {
+		function processRawData(plot, series, datapoints) {
+			// we normalize the area of each symbol so it is approximately the
+			// same as a circle of the given radius
+
+			var handlers = {
+				square: function (ctx, x, y, radius, shadow) {
+					// pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
+					var size = radius * Math.sqrt(Math.PI) / 2;
+					ctx.rect(x - size,y - size,size + size,size + size);
+				},
+				fillSquare: function(ctx, x, y, radius, shadow){
+					var size=radius;
+					ctx.lineWidth=size*2;
+					ctx.rect(x - size, y - size, size + size, size + size);
+				},
+				diamond: function (ctx, x, y, radius, shadow) {
+					// pi * r^2 = 2s^2  =>  s = r * sqrt(pi/2)
+					var size = radius * Math.sqrt(Math.PI / 2);
+					ctx.moveTo(x - size, y);
+					ctx.lineTo(x, y - size);
+					ctx.lineTo(x + size, y);
+					ctx.lineTo(x, y + size);
+					ctx.lineTo(x - size, y);
+				},
+				triangle: function (ctx, x, y, radius, shadow) {
+					// pi * r^2 = 1/2 * s^2 * sin (pi / 3)  =>  s = r * sqrt(2 * pi / sin(pi / 3))
+					var size = radius * Math.sqrt(2 * Math.PI / Math.sin(Math.PI / 3));
+					var height = size * Math.sin(Math.PI / 3);
+					ctx.moveTo(x - size/2, y + height/2);
+					ctx.lineTo(x + size/2, y + height/2);
+					if (!shadow) {
+						ctx.lineTo(x, y - height/2);
+						ctx.lineTo(x - size/2, y + height/2);
+					}
+				},
+				cross: function (ctx, x, y, radius, shadow) {
+					// pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
+					var size = radius * Math.sqrt(Math.PI) / 2;
+					ctx.moveTo(x - size, y - size);
+					ctx.lineTo(x + size, y + size);
+					ctx.moveTo(x - size, y + size);
+					ctx.lineTo(x + size, y - size);
+				}
+			};
+
+			var s = series.points.symbol;
+			if (handlers[s])
+				series.points.symbol = handlers[s];
+		}
+
+		function init(plot) {
+			plot.hooks.processDatapoints.push(processRawData);
+		}
+
+		$.plot.plugins.push({
+			init: init,
+			name: 'symbols',
+			version: '1.0'
+		});
+	})(jQuery);
+	(function ($) {
+		var printAreaCount = 0;
+		$.fn.printArea = function () {
+			var ele = $(this);
+			var idPrefix = "printArea_";
+			removePrintArea(idPrefix + printAreaCount);
+			printAreaCount++;
+			var iframeId = idPrefix + printAreaCount;
+			var iframeStyle = 'position:absolute;width:0px;height:0px;left:-500px;top:-500px;';
+			iframe = document.createElement('IFRAME');
+			$(iframe).attr({
+				style: iframeStyle,
+				id: iframeId
+			});
+			document.body.appendChild(iframe);
+			var doc = iframe.contentWindow.document;
+			$(document).find("link").filter(function () {
+				return $(this).attr("rel").toLowerCase() == "stylesheet";
+			}).each(
+					function () {
+						doc.write('<link type="text/css" rel="stylesheet" href="'
+								+ $(this).attr("href") + '" >');
+					});
+			doc.write('<div class="' + $(ele).attr("class") + '">' + $(ele).html()
+					+ '</div>');
+			doc.close();
+			var frameWindow = iframe.contentWindow;
+			frameWindow.close();
+			frameWindow.focus();
+			frameWindow.print();
+		}
+		var removePrintArea = function (id) {
+			$("iframe#" + id).remove();
+		};
+	})(jQuery);
+	var pageExdentsD={page:{data:{data:{}}}};
+	function getUrlParam() {
+		var paramobj = {};
+		var paramarr = window.location.search.substring(1, window.location.search.length).split('&');
+		for (var i = 0; i < paramarr.length; i++) {
+			if (paramarr[i]) {
+				paramobj[paramarr[i].split('=')[0]] = paramarr[i].split('=')[1]
+			}
+		}
+		return paramobj;
+	}
+	var id=getUrlParam().id;
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.getCustomerInfoDetail,
+		type:'get',
+		dataType:'json',
+		async:false,
+		data:{
+			"id":id
+		},
+		success:function(data){
+			if(data.success) {
+				pageExdentsD.page.data.data=data.data;
+			}
+		}
+	});
+
+	Date.prototype.Format = function (fmt) { //author: meizz
+		var o = {
+			"M+": this.getMonth() + 1, //月份
+			"d+": this.getDate(), //日
+			"h+": this.getHours(), //小时
+			"m+": this.getMinutes(), //分
+			"s+": this.getSeconds(), //秒
+			"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+			"S": this.getMilliseconds() //毫秒
+		};
+		if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o)
+			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		return fmt;
+	}
+	pageExdentsD.page.data.data.customerInfoDO.reportStatus=(pageExdentsD.page.data.data.customerInfoDO.reportStatus==1?"<span class='row_itme_content report_success'>获得满6个月的资金流水，符合要求</span>":"<span class='row_itme_content report_failed'>未获得满6个月的资金流水，不符合要求</span>");
+	pageExdentsD.page.data.data.customerInfoDO.id=id;
+	_.each(pageExdentsD.page.data.data.list,function(item){
+		item.recordTime=new Date(item.recordTime).Format('yyyy-MM-dd');
+		item.amount=item.amount>0?"<td class='report_success'>"+item.amount+"</td>":"<td class='report_failed'>"+item.amount+"</td>";
+	})
+	var pageMVC=new PageMVC();
+	pageMVC.extendsData(pageExdentsD);
+	pageMVC.temp();
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.countByInfoId,
+		type:'get',
+		dataType:'json',
+		data:{
+			"id":id
+		},
+		success:function(data){
+			if(data.success) {
+				showCharts(data.data);
+			}
+		}
+	});
+	function showCharts(data){
+		var chartsData=[{
+			label:"收入",
+			data:[],
+			color:'#16ba9a',
+			points: {
+				show: true,
+				radius: 2,
+				symbol: "fillSquare"
+			},
+			lines: { show: true}
+
+		},{
+			label:"支出",
+			data:[],
+			color:'#f56c42',
+			points: {
+				show: true,
+				radius: 2,
+				symbol: "fillSquare"
+			},
+			lines: { show: true},
+
+		},{
+			label:"结余",
+			data:[],
+			color:'#aec8ff',
+			bars: {
+				show: true,
+				align: "center",
+				barWidth:0.2,
+				lineWidth:0
+			}
+
+		}];
+		var ticks=[];
+		for (var j in data) {
+			for (var i in data[j]) {
+				var point1 = [];
+				var point2=[];
+				var point3=[]
+				var year=data[j][i]['year']*12;
+				var month=data[j][i]['month']-1;
+				var time=year+month;
+				point1[0] = time;
+				point2[0] = time;
+				point3[0] = time;
+				ticks.push(time);
+				point1[1] = data[j][i]['in'];
+				point2[1] = -data[j][i]['out'];
+				point3[1] = data[j][i]['balance'];
+				chartsData[0].data.push(point1);
+				chartsData[1].data.push(point2);
+				chartsData[2].data.push(point3);
+			}
+		}
+		console.log(chartsData)
+		var plotChart=$.plot(".report_chart", chartsData, {
+			legend:{
+				noColumns: 3,
+				container:$('.legend_container')
+			},
+			grid: {
+				hoverable: true,
+				clickable: true,
+				backgroundColor:'#fff',
+				borderWidth:0
+			},
+			xaxis:{
+				ticks:ticks,
+				tickFormatter:function(axia){
+					var year=Math.floor(axia/12);
+					var month=(axia % 12)+1; 
+					return year+'-'+month;
+				}
+			},
+			yaxis:{
+				min:0,
+			},
+			shadowSize:0
+		});
+		function showTooltip(x, y, contents) {  
+			$('<div id="tooltip">' + contents + '</div>').css( {  
+				position: 'absolute',  
+				display: 'none',  
+				top: y + 10,  
+				left: x + 10,  
+				border: '1px solid #fdd',  
+				padding: '2px',  
+				'background-color': '#dfeffc',  
+				opacity: 0.80  
+			}).appendTo("body").fadeIn(200);  
+		} 
+		var previousPoint=null;
+		$(".report_chart").bind("plothover", _.throttle(function (event, pos, item) {
+			 if (item) {  
+                if (previousPoint != item.pageY) {  
+                    previousPoint = item.pageY;  
+                    $("#tooltip").remove();  
+                    var y = item.datapoint[1].toFixed(2);  
+                    var tip = "金额：";  
+                    showTooltip(item.pageX, item.pageY,tip+y);  
+                }  
+            }  
+            else {  
+                $("#tooltip").remove();  
+                previousPoint = null;  
+            }  
+		},300));
+	}
+	$('.btn_print').click(function(){
+		$('body').printArea()
+	})
+</script>

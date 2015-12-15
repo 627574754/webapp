@@ -1,0 +1,94 @@
+#content{
+}
+.flexslider_extends{
+    left: 27%;
+    position: absolute;
+    top: 55%;
+    width: 12%;
+    z-index: 2;
+}
+.flexslider_extends .btn{
+	display:block;
+	width:100%;
+	font-size:16px;
+	height:46px;
+}
+.flexslider_extends .login_btn.btn{
+	background:#206cb9;
+	color:#fff;
+}
+.flexslider_extends .regist_btn.btn{
+	background:#cccdcf;
+	color:#666;
+	margin-top:30px;
+}
+.service_intro_list dl{
+	float:left;
+	width:230px;
+	padding:64px 20px 80px;
+	text-align:center;
+	margin-right:40px;
+}
+.service_intro_list  .service_intro_box_b{
+	width:294px;
+}
+.service_intro_list .service_intro_box_c{
+	margin-right:0;
+}
+.service_intro_list .service_icon{
+	display:block;
+	margin:0 auto;
+	width:70px;
+	height:80px;
+	background:url(../images/home_service_intro.png);
+}
+.service_intro_list dt{
+	border-bottom:1px solid #ddd;
+}
+.service_intro_list dd{
+	text-align:left;
+}
+.service_intro_list .service_intro_title{
+	margin:15px 0 10px;
+	font-size:20px;
+	color:#333;
+	font-weight:bold;
+}
+.service_intro_list h3{
+	margin-top:20px;
+	font-size:14px;
+	color:#333;
+}
+.service_intro_list h4{
+	color:#666;
+	font-size:14px;
+}
+.service_intro_box_c h4{
+	margin-top:20px;
+}
+.service_intro_box_a .service_icon{
+	background-position:-75px 0;
+}
+.service_intro_box_b .service_icon{
+	background-position:0 0;
+}
+.service_intro_box_c .service_icon{
+	background-position:-150px 0;
+}
+.service_intro_box_a .fill_height{
+	margin-top:103px;
+}
+.service_intro_box_c .fill_height{
+	margin:65px 0 15px;
+}
+
+.service_intro_box_c .btn{
+	font-size:18px;
+	color:#666;
+	border:1px solid #666;
+	background:transparent;
+	width:100%;
+}
+.service_intro_box_c .input_field{
+	margin-top:30px;
+}

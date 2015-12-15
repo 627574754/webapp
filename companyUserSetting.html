@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-账户信息设置</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/companyUser.css" /> 
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class='inner clearfix'>
+			<div class='left_panel'>
+				<p class='welcome'>早上好，<%=data.name%>公司</p>
+				<ul class='left_menu'>
+					<li>
+						<span class='option_icon_bg'>
+							<em class='option_icon_my_account'></em>
+						</span>
+						<span class='option_font'>我的账户</span>
+						<span class='arr_icon'></span>
+						<ul class='left_menu_level2'>
+							<li><span class='level2_icon'></span><a href="companyUserOverview.html">账户总览</a></li>
+							<li><span class='level2_icon'></span ><a href="companyUserSetting.html">账户基本信息</a></li>
+						</ul>
+					</li>
+					<li>
+						<span class='option_icon_bg'>
+							<em class='option_icon_customer_admin'></em>
+						</span>
+						<span class='option_font'>客户管理</span>
+						<span class='arr_icon'></span>
+						<ul class='left_menu_level2'>
+							<li><span class='level2_icon'></span><a href="companyUserQuery.html">客户信息查询</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class='right_panel'>
+				<p class='current_page_position'>
+					<span class='current_page_position_icon'></span>
+					<a class='current_page_position_level1'>我的账户</a>
+					<span class='relation_symbol'>&gt;</span>
+					<a class='current_page_position_level2'>账户信息管理</a>
+				</p>
+				<p class='latest_login'>上次登录时间：<%=data.lastLogin%></p>
+				<div class='setting_module setting_module_a'>
+					<p class='setting_module_title'>
+						<span class='setting_module_title_icon'></span>
+						企业基本信息维护
+						<span class='setting_module_title_sub'>（您可以修改部分以下信息）</span>
+					</p>
+					<div class='setting_module_content'>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'><label>企业名称：</label><%=data.name%></div>
+							<div class='setting_module_row_right'></div>
+						</div>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'>
+								<label>注册号：</label><%=data.registerNo%>
+							</div>
+							<div class='setting_module_row_right'>
+								<label>组织机构代码：</label><%=data.orgCode%>
+							</div>
+						</div>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'>
+								<label>法定代表人：</label><%=data.legalName%>
+							</div>
+							<div class='setting_module_row_right'>
+								<label>法人证件号：</label><%=data.legalIdentityNo%>
+							</div>
+						</div>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'>
+								<label>证件有效期：</label><input type='text' name="legalIdentityValidity" class='setting_module_input' value="<%=data.legalIdentityValidity%>"/>
+							</div>
+							<div class='setting_module_row_right'>
+								<label>联系方式：</label><input type='text' name="legalTel" class='setting_module_input' value="<%=data.legalTel%>"/>
+							</div>
+						</div>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'>
+								<label>法人营业执照：</label>
+								<img src="http://duolaqiao.com/dola<%=data.businessLicenseUrl%>" class="setting_module_img">
+							</div>
+							<div class='setting_module_row_right'>
+								<label>组织机构代码：</label>
+								<img src="http://duolaqiao.com/dola<%=data.orgCodeCertificate%>" class="setting_module_img">
+							</div>
+						</div>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'>
+								<label>法人证件照：</label>
+								<img src="http://duolaqiao.com/dola<%=data.lagalPassportUrl%>" class="setting_module_img">
+							</div>
+							<div class='setting_module_row_right'>
+								<label>公司LOGO：</label>
+								<img src="http://duolaqiao.com/dola<%=data.logoUrl%>" class="setting_module_img">
+							</div>
+						</div>
+						<p class='ta_c'><button class='btn setting_module_btn'>保存修改</button></p>
+					</div>
+				</div>
+				<div class='setting_module setting_module_b'>
+					<p class='setting_module_title'>
+						<span class='setting_module_title_icon'></span>
+						联系人信息维护
+						<span class='setting_module_title_sub'>（您可以修改部分以下信息）</span>
+					</p>
+					<div class='setting_module_content'>
+						<div class='setting_module_row clearfix'>
+							<div class='setting_module_row_left'>
+								<label>联系人：</label><input type='text' name="contactsName" class='setting_module_input' value="<%=data.contactsName%>"/>
+							</div>
+							<div class='setting_module_row_right'>
+								<label>联系方式：</label><input type='text' name="contactsTel" class='setting_module_input' value="<%=data.contactsTel%>"/>
+							</div>
+						</div>
+						<div class='setting_module_row clearfix'>
+							<%if(data.reportEmail){%>
+							<label>联系邮箱：</label><input type='text' name="reportEmail" class='setting_module_input' value="<%=data.reportEmail%>"/>
+							<%}else{%>
+							<label>联系邮箱：</label><input type='text' name="reportEmail" class='setting_module_input' value="<%=data.email%>"/>
+							<%}%>
+							<span class='setting_module_important_msg'>(用于发送报告通知，请务必填写)</span>
+						</div>
+						<p class='ta_c'><button class='btn setting_module_btn'>保存修改</button></p>
+					</div>
+				</div>
+				<div class='setting_module setting_module_c'>
+					<p class='setting_module_title'>
+						<span class='setting_module_title_icon'></span>
+						安全信息维护
+						<span class='setting_module_title_sub'>（您可以修改部分以下信息）</span>
+					</p>
+					<div class='setting_module_content'>
+						<div class='modify_pwd_box'>
+							<div class='modify_pwd_box_title'>
+								<span class='modify_pwd_box_title_icon'>登录密码</span>
+								<span class='modify_pwd_box_status'>已设置</span>
+								<span class='modify_pwd_box_drop_down_icon'>修改</span>
+							</div>
+							<div class='modify_pwd_box_content'>
+								<div class='setting_module_row clearfix'>
+									<label>旧密码：</label><input type='password' class='setting_module_input' name='password'/>
+								</div>
+								<div class='setting_module_row clearfix'>
+									<label>新密码：</label><input type='password' class='setting_module_input' name='newPassword'/>
+								</div>
+								<div class='setting_module_row clearfix'>
+									<label>确认密码：</label><input type='password' class='setting_module_input' />
+								</div>
+								<p class='ta_c'><button class='btn setting_module_btn'>确认</button></p>
+								
+							</div>
+							
+						</div>
+						<div class='setting_module_row clearfix'>
+							<label class='setting_module_label_fix_width'>我的客户登录域名：</label>
+							<input type='text' class='setting_module_input setting_module_input_fix_width' readonly='readonly' value="http://duolaqiao.com/dola/pers/<%=data.domain%>"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/placeholder.min.js'></script>
+<script type="text/javascript" src="js/jquery-ui-datepicker.js"></script>
+<script src='js/common.js'></script>
+<script>
+	var pageExdentsD={page:{data:{data:{}}}};
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.getUserInfoDetail,
+		type:'post',
+		dataType:'json',
+		async:false,
+		success:function(data){
+			if(data.success) {
+				pageExdentsD.page.data.data=data.data;
+			}
+		}
+	});
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.getLastLoginInfo,
+		type:'post',
+		dataType:'json',
+		async:false,
+		success:function(data){
+			if(data.success) {
+				pageExdentsD.page.data.data.lastLogin=data.data;
+			}
+		}
+	});
+	Date.prototype.Format = function (fmt) { //author: meizz
+		var o = {
+			"M+": this.getMonth() + 1, //月份
+			"d+": this.getDate(), //日
+			"h+": this.getHours(), //小时
+			"m+": this.getMinutes(), //分
+			"s+": this.getSeconds(), //秒
+			"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+			"S": this.getMilliseconds() //毫秒
+		};
+		if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o)
+			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		return fmt;
+	}
+	pageExdentsD.page.data.data.legalIdentityValidity=new Date(pageExdentsD.page.data.data.legalIdentityValidity).Format("yyyy-MM-dd");
+	if(pageExdentsD.page.data.data.lastLogin==0) {
+		pageExdentsD.page.data.data.lastLogin = new Date().Format("yyyy-MM-dd hh:mm:ss");
+	}
+	var pageMVC=new PageMVC();
+	pageMVC.extendsData(pageExdentsD);
+	pageMVC.temp();
+	$(function(){
+		var leftMenu=new LeftMenu([0,1]);
+		function ModifyPwd(){
+			this.events();
+		}
+		ModifyPwd.prototype={
+			events:function(){
+				$('.modify_pwd_box_drop_down_icon').bind('click',function(){
+					if($('.modify_pwd_box_content').is(":visible")){
+						$('.modify_pwd_box_content').hide();
+					}else {
+						$('.modify_pwd_box_content').show();
+					}
+				})
+			}
+		};
+		var modifyPwd=new ModifyPwd();
+		$('.setting_module_btn').eq(0).click(function(){
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.update,
+				type: 'post',
+				contentType: "application/json",
+				data: JSON.stringify({
+					legalIdentityValidity: $("input[name='legalIdentityValidity']").val(),
+					legalTel: $("input[name='legalTel']").val(),
+				}),
+				dataType: 'json',
+				success:function(data){
+					if(data.success){
+						window.location.reload();
+					}
+				}
+			})
+		})
+		$('.setting_module_btn').eq(1).click(function(){
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.update,
+				type: 'post',
+				contentType: "application/json",
+				data: JSON.stringify({
+					contactsName: $("input[name='contactsName']").val(),
+					contactsTel: $("input[name='contactsTel']").val(),
+					reportEmail: $("input[name='reportEmail']").val()
+				}),
+				dataType: 'json',
+				success:function(data){
+					if(data.success){
+						window.location.reload();
+					}
+				}
+			})
+		})
+		$('.setting_module_btn').eq(2).click(function(){
+			var pwdReg=/^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~\_\-\|\?]{8,16}$/;
+			var oldPwd=$('.modify_pwd_box_content').find('input').eq(0);
+			var newPwd=$('.modify_pwd_box_content').find('input').eq(1);
+			var rePwd=$('.modify_pwd_box_content').find('input').eq(2);
+			if(!oldPwd.val().match(pwdReg)||!newPwd.val().match(pwdReg)){
+				alert('密码格式有误，6-8位，可以包含字母数字下划线');
+				return false;
+			}
+			if(newPwd.val()!=rePwd.val()){
+				alert('两次输入新密码不一致');
+				return false;
+			}
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.updatePassword,
+				type: 'post',
+				contentType: "application/json",
+				data: JSON.stringify({
+					password: $("input[name='password']").val(),
+					newPassword: $("input[name='newPassword']").val(),
+				}),
+				dataType: 'json',
+				success:function(data){
+					if(data.success){
+						alert('修改密码成功');
+						window.location.reload();
+					}else{
+						if(data.message){
+							alert(data.message)
+						}else{
+							alert('修改密码失败')
+						}
+					}
+				}
+			})
+		})
+		$('input[name="legalIdentityValidity"]').datepicker();
+	});
+</script>

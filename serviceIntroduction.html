@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-服务介绍</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/serviceIntroduction.css" /> 
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class='inner'>
+			<div class='content1'>
+				<div class='content1_left'>
+					<span class='content1_left_triangle'></span>
+					<h2>服务介绍</h2>
+					<h3>
+						<p>安全桥致力于成为个人用户与机构之间的银行流水信息传递桥梁。帮助机构获得真实的客户银行流水、提高客户转化率、节约人力成本。完美地解决了由于虚假银行流水导致的坏账以及其它损失。</p>
+						<br/>
+						<p>目前我们的客户包括传统的互联网小贷公司、互联网P2P公司、以及各大签证机构。只需要轻松注册，即可获得安全桥提供的服务。</p>
+						<br/>
+						<p>安全桥整体了最优秀的技术人才，保障客户数据安全，提供高品质、安全的服务。</p>
+						<br/>
+					</h3>
+				</div>
+			</div>
+			<div class='content2'>
+				<h2>服务特征</h2>
+				<div class='content2_top i_box'>
+					<dt>实时</dt>
+					<dd>实时帮助客户获得银行流水，无须线下排队， 接入国内主流银行15家，覆盖93%的客户</dd>
+				</div>
+				<div class='content2_right i_box'>
+					<dt>准确</dt>
+					<dd>准确验证客户信息， 让所有的假造无所遁形</dd>
+				</div>
+				<div class='content2_bottom i_box'>
+					<dt>可视化报告</dt>
+					<dd>根据企业需求订制客户可视化报告， 让业务人员一眼即可知客户是否满足业务申请条件</dd>
+				</div>
+				<div class='content2_left i_box'>
+					<dt>安全</dt>
+					<dd>采用XX双向加密措施， 同时查询后系统自动 删除客户查询密码， 保障客户所有信息安全。</dd>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/common.js'></script>
+<script>
+	//解析页面模板
+	var pageMVC=new PageMVC();
+	pageMVC.temp();
+</script>

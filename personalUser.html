@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-安全查询银行流水</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/personalUser.css" />
+	<link rel="stylesheet" type="text/css" href="css/bank_list.css" />
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<div class="layer">
+	</div>
+	<%=banner%>
+	<div id='content' class='global_min_width clearfix'>
+		<div class='content1 inner'>
+			<form class="slt_form stepWrap" style="display:none;">
+				<div class='main_box'>
+					<div class='main_box_tip'>
+						请选择你要查询的银行
+					</div>
+					<div class='main_box_content'>
+						<div class='bank_list_box'>
+							<ul class='bank_list clearfix'>
+								<li><i class="chl-icon ICBC icon-cashier-ICBC" title="中国工商银行" data-id="ICBC"></i></li>
+								<li><i class="chl-icon CCB icon-cashier-CCB" title="中国建设银行" data-id="CCB"></i></li>
+								<li><i class="chl-icon ABC icon-cashier-ABC" title="中国农业银行" data-id="ABC"></i></li>
+								<li><i class="chl-icon CMB icon-cashier-CMB" title="招商银行" data-id="CMB"></i></li>
+								<li><i class="chl-icon BOC icon-cashier-BOC" title="中国银行" data-id="BOC"></i></li>
+								<li><i class="chl-icon CEB icon-cashier-CEB" title="中国光大银行" data-id="CEB"></i></li>
+								<li><i class="chl-icon CMBC icon-cashier-CMBC" title="中国民生银行" data-id="CMBC"></i></li>
+								<li><i class="chl-icon SPABANK icon-cashier-SPABANK" title="平安银行" data-id="SPABANK"></i></li>
+								<li><i class="chl-icon CIB icon-cashier-CIB" title="兴业银行 " data-id="CIB"></i></li>
+							</ul>
+						</div>
+						<input type="text" style="display:none;" name="bank">
+						<div class='row clearfix'>
+							<button class='btn submit'>下一步</button>
+						</div>
+						
+						<div class="error_container">
+							*&emsp;输入信息不全或输入银行卡、手机号、用户名错误
+						</div>
+					</div>
+
+				</div>
+			</form>
+			<div class="stepWrap">
+				<div class="main_box">
+					<div class="tab-wrap">
+						<div class="tab cur tabItem">卡号</div>
+						<div class="tab tabItem">一网通用户</div>
+					</div>
+					<div class="query_tips">为保证您的账户资金安全，请确保您的查询密码和交易密码不通。本网站服务只使用查询密码，完成本次查询后，建议修改查询密码。</div>
+					<form class="main_box_content cardForm tabCnt">
+						<div class='row clearfix'>
+							<div class='row_left'>银行：</div>
+							<div class='row_right'>
+								<div class="slted-bank"><i class="chl-icon ICBC icon-cashier-ICBC" title="中国工商银行" data-id="ICBC"></i></div><a class="link-black" id="rechoseBank" data-pg="0">重新选择</a>
+							</div>
+						</div>
+						<div class='row clearfix query_method_default'>
+							<div class='row_left'>卡号</div>
+							<div class='row_right'>
+								<input type='text' class='text_input' placeholder='请输入你的卡号' name="card">
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>查询密码：</div>
+							<div class='row_right query_pwd'>
+								<input type='password' class='text_input' placeholder='网银登录密码（非交易密码）' name="password">
+								<!--<span class='icon query_pwd_icon'></span>-->
+							</div>
+							<div class='query_pwd_box' style='display:none'>
+								<dl>
+									<dt>网银登录密码</dt>
+									<dd>是您注册网银时所填写的密码，我们不会保存记录，使用后立即删除。</dd>
+								</dl>
+								
+								<dl>
+									<dt>网银登录密码</dt>
+									<dd>网银登录密码非交易密码（非取款密码），仅提供数据查询功能，不能用于交易转账。</dd>
+								</dl>
+								<dl>
+									<dt>网银登录密码</dt>
+									<dd>1、您可登录网上银行进行重置和修改。<br/>2、可拨打<span class='query_pwd_box_bank'>工商银行</span>服务热线 <span class='query_pwd_box_phone'>95588</span>。</dd>
+								</dl>
+							</div>
+						</div>
+						<div class='row clearfix identify_code_row'>
+							<div class='row_left'>验证码：</div>
+							<div class='row_right'>
+								<input type='text' class='text_input identify_code' placeholder='请输入验证码' name="code">
+								<img class='identify_code_img'/>
+								<a class='change_identiy_code'>换一张</a>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<label class='checkbox agreement'><input type='checkbox' name="agreement" checked="checked">已经阅读并同意<a href='../agreement.html' target="_blank">《安全桥数据解析服务协议》</a></label>
+						</div>
+						<div class='row clearfix'>
+							<button class='btn submit'>确认授权并开始查询银行流水单</button>
+						</div>
+						<div class="error_container">
+							*&emsp;输入信息不全或输入银行卡、手机号、用户名错误
+						</div>
+						<div class='row clearfix query_count'>
+							很荣幸，我们已经为 <span class='orange'>36452</span> 个用户提供了查询服务，账户损失为 <span class='orange'>0</span>  元。
+						</div>
+					</form>
+					<form class="main_box_content ywtForm tabCnt none">
+						<div class='row clearfix'>
+							<div class='row_left'>银行：</div>
+							<div class='row_right'>
+								<div class="slted-bank"><i class="chl-icon ICBC icon-cashier-ICBC" title="中国工商银行" data-id="ICBC"></i></div><a class="link-black" id="rechoseBank" data-pg="0">重新选择</a>
+							</div>
+						</div>
+						<div class='row clearfix query_method_default'>
+							<div class='row_left'>登录名：</div>
+							<div class='row_right'>
+								<input type='text' class='text_input' placeholder='请输入你的卡号' name="card">
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>查询密码：</div>
+							<div class='row_right query_pwd'>
+								<input type='password' class='text_input' placeholder='网银登录密码（非交易密码）' name="password">
+								<!--<span class='icon query_pwd_icon'></span>-->
+							</div>
+							<div class='query_pwd_box' style='display:none'>
+								<dl>
+									<dt>网银登录密码</dt>
+									<dd>是您注册网银时所填写的密码，我们不会保存记录，使用后立即删除。</dd>
+								</dl>
+								
+								<dl>
+									<dt>网银登录密码</dt>
+									<dd>网银登录密码非交易密码（非取款密码），仅提供数据查询功能，不能用于交易转账。</dd>
+								</dl>
+								<dl>
+									<dt>网银登录密码</dt>
+									<dd>1、您可登录网上银行进行重置和修改。<br/>2、可拨打<span class='query_pwd_box_bank'>工商银行</span>服务热线 <span class='query_pwd_box_phone'>95588</span>。</dd>
+								</dl>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>卡号后四位：</div>
+							<div class='row_right query_pwd'>
+								<input type='password' class='text_input' placeholder='请输入卡号后四位' name="extra">
+							</div>
+						</div>
+						<div class='row clearfix identify_code_row'>
+							<div class='row_left'>验证码：</div>
+							<div class='row_right'>
+								<input type='text' class='text_input identify_code' placeholder='请输入验证码' name="code">
+								<img class='identify_code_img'/>
+								<a class='change_identiy_code'>换一张</a>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<label class='checkbox agreement'><input type='checkbox' name="agreement" checked="checked">已经阅读并同意<a href='../agreement.html' target="_blank">《安全桥数据解析服务协议》</a></label>
+						</div>
+						<div class='row clearfix'>
+							<button class='btn submit'>确认授权并开始查询银行流水单</button>
+						</div>
+						<div class="error_container">
+							*&emsp;输入信息不全或输入银行卡、手机号、用户名错误
+						</div>
+						<div class='row clearfix query_count'>
+							很荣幸，我们已经为 <span class='orange'>36452</span> 个用户提供了查询服务，账户损失为 <span class='orange'>0</span>  元。
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class='content2'>
+			<div class='inner'>
+				<div class='i_box i_box_1 ta_l'>
+					<dl>
+						<dt>
+							<p class='i_box_img'></p>
+							<h2>资金安全</h2>
+						</dt>
+						<dd>
+							平安保险全额承促使，闪电赔偿。
+						</dd>
+					</dl>
+				</div>
+				<div class='i_box i_box_2 ta_c'>
+					<dl>
+						<dt>
+							<p class='i_box_img'></p>
+							<h2>个人信息安全</h2>
+						</dt>
+						<dd>
+							采用多重加密，不记录个人信息，查询的流水立即删除。
+						</dd>
+					</dl>
+				</div>
+				<div class='i_box i_box_3 ta_r'>
+					<dl>
+						<dt>
+							<p class='i_box_img'></p>
+							<h2>安全认证</h2>
+						</dt>
+						<dd>
+							通过CFCA国家权威安全检测。
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="msg-conform-dialog" id="conformDialog">
+		<div class="conform-title">
+			安全认证<i class="conform-close"></i>
+		</div>
+		<div class="query_tips">为保证您的账户安全，现在对你使用当前设备登录进行安全认证。</div>
+		<form class="conform-form">
+			<div class='row'>
+				<div class='cf-label'>安全认证手机：</div>
+				<div class='cf-cnt'>
+					<input type='text' class='ipt' name="">
+				</div>
+			</div>
+			<div class='row'>
+				<div class='cf-label'>短信验证码：</div>
+				<div class='cf-cnt'>
+					<input type='text' class='ipt' name="">
+				</div>
+			</div>
+			<div class='row'>
+				<div class='cf-label'>验证码：</div>
+				<div class='cf-cnt'>
+					<input type='text' class='ipt ipt1' name="">
+					<div class="code-img"><img src=""></div>
+				</div>
+			</div>
+			<button class='conform-btn submit'>提交验证</button>
+		</form>
+	</div>
+	<%=footer%>
+</script>
+</body>
+
+
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<!-- placeholder for IE8-->
+<script src='js/placeholder.min.js'></script>
+<!-- 进度条 -->
+<script src="js/jquery.knob.js"></script>
+<script src='js/jquery.validate.min.js'></script>
+<!-- 公共类 -->
+<script src='js/common.js'></script>
+<!-- -->
+<script>
+var pageExdentsD={page:{data:{data:{}}}};
+var commonExdentsD={banner:{data:{}}};
+// $.ajax({
+// 	url:globalConifg.baseUrl+globalConifg.api.getUserInfo,
+// 	type:'get',
+// 	dataType:'json',
+// 	data:{
+// 		'domain':window.location.href.split('/dola/pers/')[1]
+// 	},
+// 	async:false,
+// 	success:function(data){
+// 		if(data.success) {
+// 			pageExdentsD.page.data.data.name=data.data.name;
+// 			commonExdentsD.banner.data.logoUrl=globalConifg.baseUrl+data.data.logoUrl.substring(1,data.data.logoUrl.length);
+// 		}
+// 	}
+// });
+var pageMVC=new PageMVC();
+pageMVC.extendsData(commonExdentsD,true);
+pageMVC.extendsData(pageExdentsD);
+pageMVC.temp();
+
+
+$(function(){
+	function IdentifyCode() {
+		this.events();
+		this.sid='';
+	}
+	IdentifyCode.prototype={
+		events:function(){
+			var that=this;
+			$('.change_identiy_code').click(function(){
+				//$('.identify_code_img').attr('src',$('.identify_code_img').attr('src')+'?'+new Date().getTime());
+				that.getBankIdentifyCode($(this).data('bank'));
+			})
+		},
+		getBankIdentifyCode:function(bank){
+			var that=this;
+			$.ajax({
+				url:globalConifg.baseUrl+globalConifg.api.getBankCode,
+				type:'get',
+				dataType:'json',
+				data:{
+					'bank':bank
+				},
+				async:false,
+				success:function(data){
+					if(data.success) {
+						$('.identify_code_row').show();
+						$('.identify_code_img').attr('src',data.data.img);
+						that.sid=data.data.sid;
+						$('.change_identiy_code').data('bank',bank);
+					}
+				}
+			});
+		}
+	};
+	var identifyCode=new IdentifyCode();
+	/*placeholder for IE8*/
+	$('input').placeholder();
+	/*进度条*/
+	function ProgressCircle(){
+		this.timer=null;
+		this.main=this.init();
+		this.count=0;
+	}
+	ProgressCircle.prototype={
+		init:function(){
+			var that=this;
+			var progresscircle="<div class='popout_box'>"+
+									"<div class='popout_box_cover'>"+
+									"</div>"+
+									"<div class='popout_box_circle'>"+
+										"<input class='knob' data-width='100' data-displayinput='true' data-displayprevious='true' readonly value='0' >"+
+										"<em class='knob_extend_symbol'>%</em>"+
+										"<span class='knob_extend_content'>正在解析流水报告</span>"+
+									"</div>"+
+								"</div>";
+			var pc=$(progresscircle);
+			$('body').prepend(pc);
+			$(".knob").knob({ 
+				'width':"240"  
+				,'height':"240"  
+				,'readonly':"readonly" 
+				,'thickness':".1"
+				,'fgColor':'#0ca6f0'	
+			});
+			clearInterval(this.timer);
+			this.timer=setInterval(function () {
+				that.count++;
+				if(that.count===100){
+					clearInterval(that.timer);
+					that.count=0;
+					var messageBox=new MessageBox('链接超时！','请重新发送',"确定",2)
+					pc.remove();
+				}else{
+					that.setVal(that.count)
+				}
+			}, 1200)
+			return pc;
+		},
+		goEnd:function(fn){
+			var that=this;
+			clearInterval(this.timer);
+			this.timer=setInterval(function () {
+				that.count++;
+				if(that.count===100){
+					clearInterval(that.timer);
+					that.main.remove();
+					if(fn) fn();
+				}else{
+					that.setVal(that.count)
+				}
+
+			}, 20)
+		},
+		setVal:function(value){
+			$('.knob').val(value).trigger('change')
+		}
+	}
+
+	/*banklist*/
+	function BankList(){
+		this.eventsObjs={
+			'bank_list_box':$('.bank_list_box'),
+			'banks':$('.bank_list').find('li'),
+		}
+		this.bankData={
+			'ICBC':{
+				'id':'icbc',
+				'title':'中国工商银行',
+				'method':0,
+				'phone':'95588'
+			},
+			'CCB':{
+				'id':'ccb',
+				'title':'中国建设银行',
+				'method':1,
+				'phone':'95533'
+			},
+			'ABC':{
+				'id':'abcchina',
+				'title':'中国农业银行',
+				'method':0,
+				'phone':'95599'
+			},
+			'CMB':{
+				'id':'cmbchina',
+				'title':'招商银行',
+				'method':0,
+				'phone':'95555'
+			},
+			'BOC':{
+				'id':'boc',
+				'title':'中国银行',
+				'method':0,
+				'phone':'95566'
+			},
+			'CEB':{
+				'id':'cebbank',
+				'title':'中国光大银行',
+				'method':0,
+				'phone':'95595'
+			},
+			'PSBC':{
+				'id':'psbc',
+				'title':'中国邮政储蓄银行',
+				'method':1,
+				'phone':'95580'
+			},
+			'COMM':{
+				'id':'bankcomm',
+				'title':'交通银行',
+				'method':0,
+				'phone':'95559'
+			},
+			'CMBC':{
+				'id':'cmbc',
+				'title':'中国民生银行',
+				'method':0,
+				'phone':'95568'
+			},
+			'CITIC':{
+				'id':'ecitic',
+				'title':'中信银行',
+				'method':0,
+				'phone':'95558'
+			},
+			'JSBANK':{
+				'id':'jsbchina',
+				'title':'江苏银行',
+				'method':0,
+				'phone':'400-869-6098'
+			},
+			'HXBANK':{
+				'id':'hxb',
+				'title':'华夏银行',
+				'method':1,
+				'phone':'95577'
+			},
+			'NBBANK':{
+				'id':'nbcb',
+				'title':'宁波银行',
+				'method':0,
+				'phone':'95574'
+			},
+			'SHBANK':{
+				'id':'bankofshanghai',
+				'title':'上海银行',
+				'method':0,
+				'phone':'95594'
+			},
+			'SPDB':{
+				'id':'spdb',
+				'title':'浦发银行',
+				'method':1,
+				'phone':'95528'
+			},
+			'HZCB':{
+				'id':'hzbank',
+				'title':'杭州银行',
+				'method':0,
+				'phone':'95398'
+			},
+			'BJBANK':{
+				'id':'bankofbeijing',
+				'title':'北京银行',
+				'method':0,
+				'phone':'95526'
+			},
+			'WZCB':{
+				'id':'wzcb',
+				'title':'温州银行',
+				'method':0,
+				'phone':'96699'
+			},
+			'NJCB':{
+				'id':'njcb',
+				'title':'南京银行',
+				'method':0,
+				'phone':'400-889-6400'
+			},
+			'SPABANK':{
+				'id':'pingan',
+				'title':'平安银行',
+				'method':1,
+				'phone':'95511转3'
+			},
+			'GDB':{
+				'id':'cgbchina',
+				'title':'广发银行',
+				'method':0,
+				'phone':'400-830-8003'
+			},
+			'CSCB':{
+				'id':'cscb',
+				'title':'长沙银行',
+				'method':1,
+				'phone':'96511'
+			},
+			'CIB':{
+				'id':'cib',
+				'title':'兴业银行',
+				'method':0,
+				'phone':'95561'
+			},
+			'CQBANK':{
+				'id':'cqcbank',
+				'title':'重庆银行',
+				'method':1,
+				'phone':'400-709-6899'
+			},
+			'CRCBANK':{
+				'id':'cqrcb',
+				'title':'重庆农村商业银行',
+				'method':1,
+				'phone':'966866'
+			}
+		}
+		this.queryPwd=null;
+		this.method=0;
+		this.events();
+	}
+	BankList.prototype={
+		events:function(){
+			var that=this;
+			that.eventsObjs['bank_list_box'].bind('click',function(){
+				return false;
+			})
+			that.eventsObjs['banks'].bind('click',function(){
+
+				
+				var bid=$(this).find('.chl-icon').data('id');
+				
+				$('input[name="bank"]').val(that.bankData[bid]['id']).trigger('change');
+				that.eventsObjs['banks'].removeClass('slt');
+				$(this).addClass('slt');
+				//init select bank phone num;
+				if(!that.queryPwd){
+					that.queryPwd=new QueryPwd();
+				}
+				//init select bank login method;
+				// if(that.bankData[bid]['method']===0){
+				// 	$('.query_method_1').hide().find('input').addClass('dontValid');
+				// 	that.method=0;
+				// }else{
+				// 	$('.query_method_1').show().find('input').removeClass('dontValid');
+				// 	that.method=1;
+				// }
+			})
+			
+			$('input[name="card"]').bind('input propertychange',function(){
+				$(this).val(that.formatBankNo($(this).val()));
+			});
+		},
+		close:function(){
+			this.eventsObjs['banks'].filter('.bank_list_more').show();
+			this.eventsObjs['banks'].filter('.bank_list_hide').hide();
+			this.eventsObjs['bank_list_box'].hide();
+		},
+		formatBankNo:function(bankNo) {
+			var charArr=bankNo.replace(/\s/g,'').split('');
+			if(charArr.length>4){
+				charArr.splice(4, 0, " ");
+			}
+			if(charArr.length>9){
+				charArr.splice(9, 0, " ");
+			}
+			if(charArr.length>14){
+				charArr.splice(14, 0, " ");
+			}
+			if(charArr.length>19){
+				charArr.splice(19, 0, " ");
+			}
+			var targetUrl=charArr.join('');
+			return targetUrl;
+		}
+	}
+	/*querypwd*/
+	function QueryPwd(){
+		this.eventsObjs={
+			'query_pwd_icon':$('.query_pwd_icon'),
+			'query_pwd_box':$('.query_pwd_box'),
+			'query_pwd_box_phone':$('.query_pwd_box_phone'),
+			'query_pwd_box_bank':$('.query_pwd_box_bank')
+		}
+		this.events();
+	}
+	QueryPwd.prototype={
+		events:function(){
+			var that=this;
+			that.eventsObjs['query_pwd_icon'].hover(function(){
+				that.eventsObjs['query_pwd_box'].show();
+			},function(){
+				that.eventsObjs['query_pwd_box'].hide();
+			})
+		},
+		setPhoneNum:function(num,bank){
+			this.eventsObjs['query_pwd_box_phone'].html(num);
+			this.eventsObjs['query_pwd_box_bank'].html(bank);
+		}
+	}
+
+
+	//重新选择
+	$('#rechoseBank').on('click', function(e) {
+		e.preventDefault();
+		toStep($(this).data('pg'));
+	})
+	//tab切换
+	var tabCnt = $('.tabCnt');
+	var tabs = $('.tabItem');
+	tabs.on('click',function() {
+		var tar = $(this);
+		var n = tar.index();
+		tabs.removeClass('cur');
+		tabCnt.addClass('none');
+		tar.addClass('cur');
+		tabCnt.eq(n).removeClass('none')
+		// $('.srhCodeImg').eq(n).trigger('click');
+	});
+	function toStep(n) {
+		$('.stepWrap').hide();
+		$('.stepWrap').eq(n).show();
+	}
+	
+	/*messageBox*/
+	function MessageBox(mainMessage,subMessage,operation,type,cb){
+		this.mainMessage=mainMessage;
+		this.subMessage=subMessage;
+		this.operation=operation;
+		this.type=type;
+		this.cb=cb?cb:null;
+		this.box=this.init(this.mainMessage,this.subMessage,this.operation,this.type);
+		this.events();
+	}
+	MessageBox.prototype={
+		init:function(mainMessage,subMessage,operation,type){
+			var boxStr="<div class='popout_box'>"+
+							"<div class='popout_box_cover'>"+
+							"</div>"+
+							"<div class='popout_box_message'>"+
+								"<p class='main_message'>"+
+									"<span class='icon'></span><span class='main_message_content'>报告已成功发送给“宜人贷”！</span>"+
+								"</p>"+
+								"<p class='sub_message'></p>"+
+								"<p class='message_operation'><a>7秒返回首页</a></p>"+
+							"</div>"+
+						"</div>"
+			var box=$(boxStr);
+			if(type===1){
+				box.find('.main_message .icon').addClass('icon_success');
+			}else if(type===2){
+				box.find('.main_message .icon').addClass('icon_fail');
+			}
+			box.find('.main_message .main_message_content').html(mainMessage);
+			box.find('.sub_message').html(subMessage);
+			box.find('.message_operation a').html(operation);
+			$('body').prepend(box);
+			return box;
+		},
+		hide:function(){
+			this.box.remove();
+		},
+		events:function(){
+			var that=this;
+			this.box.find('.message_operation a').bind('click',function(){
+				that.hide();
+				if(that.cb) that.cb();
+			})
+			this.box.find('.popout_box_message').bind('click',function(){
+				return false;
+			})
+			$('body').one('click',function(){
+				that.hide();
+			})
+		}
+	}
+	jQuery.validator.addMethod("isBankCard", function(value, element) {
+		var bankCardReg= /^[0-9]{16,19}$/;
+		return this.optional(element) || (bankCardReg.test(value.replace(/\s/g,'')));
+	}, "密码格式错误");
+	var sltForm = $('.slt_form');
+	sltForm.validate({
+		ignore: [],
+		rules: {
+			bank: {
+				required: true
+			},
+			// password: {
+			// 	required: true
+			// },
+			// code: {
+			// 	required: true
+			// },
+			// card: {
+			// 	required: true,
+			// 	isBankCard:true
+			// },
+			agreement:{
+				required: true
+			}
+		},
+		showErrors:function(e){
+			if(JSON.stringify(e)!=="{}") {
+				$('.slt_form').find('.error_container').show();
+				$('.slt_form').one('input propertychange change', $('.text_input'), function () {
+					$('.slt_form').find('.error_container').fadeOut();
+				})
+			}
+		},
+		onkeyup:false,
+		onfocusout:false,
+		errorPlacement: function (error, element) {
+		},
+		highlight: function (element) {
+			$(element).addClass('error')
+		},
+		submitHandler: function () {
+			identifyCode.getBankIdentifyCode($('input[name="bank"]').val());
+		}
+	});
+	//卡号查询表单提交
+	var cardForm = $('.cardForm');
+	cardForm.validate({
+		ignore: [],
+		rules: {
+			card: {
+				required: true,
+				isBankCard:true
+			},
+			password: {
+				required: true
+			},
+			code: {
+				required: true
+			},
+			agreement:{
+				required: true
+			}
+		},
+		showErrors:function(e){
+			if(JSON.stringify(e)!=="{}") {
+				cardForm.find('.error_container').show();
+				cardForm.one('input propertychange change', $('.text_input'), function () {
+					cardForm.find('.error_container').fadeOut();
+				})
+			}
+		},
+		onkeyup:false,
+		onfocusout:false,
+		errorPlacement: function (error, element) {
+		},
+		highlight: function (element) {
+			$(element).addClass('error')
+		},
+		submitHandler: function () {
+
+			var postD = {
+				domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
+				bank: cardForm.find("input[name='bank']").val(),
+				password: cardForm.find("input[name='password']").val(),
+				card:cardForm.find("input[name='card']").val().replace(/\s/g,''),
+				code: cardForm.find("input[name='code']").val(),
+				sid:identifyCode.sid
+			};
+			var progressCircle=null;
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.customerQuery,
+				type: 'post',
+				contentType: "application/json",
+				data:JSON.stringify(postD),
+				dataType: 'json',
+				beforeSend:function(){
+					progressCircle=new ProgressCircle();
+				},
+				success: function (data) {
+					if(data.success){
+						progressCircle.goEnd(function(){
+							var messageBox=new MessageBox('报告已成功发送给“'+pageExdentsD.page.data.data.name +'”！','请等待'+pageExdentsD.page.data.data.name +'审核',"确定",1)
+						})
+					}else{
+						progressCircle.goEnd(function(){
+							var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
+						})
+					}
+				}
+			})
+		}
+	});
+	//一网通查询表单提交
+	var ywtForm = $('.ywtForm');
+	ywtForm.validate({
+		ignore: [],
+		rules: {
+			name: {
+				required: true,
+			},
+			password: {
+				required: true
+			},
+			extra: {
+				required: true
+			},
+			code:{
+				required: true
+			}
+		},
+		showErrors:function(e){
+			if(JSON.stringify(e)!=="{}") {
+				ywtForm.find('.error_container').show();
+				ywtForm.one('input propertychange change', $('.text_input'), function () {
+					ywtForm.find('.error_container').fadeOut();
+				})
+			}
+		},
+		onkeyup:false,
+		onfocusout:false,
+		errorPlacement: function (error, element) {
+		},
+		highlight: function (element) {
+			$(element).addClass('error')
+		},
+		submitHandler: function () {
+
+			var postD = {
+				domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
+				bank: ywtForm.find("input[name='bank']").val(),
+				name: ywtForm.find("input[name='name']").val(),
+				extra:ywtForm.find("input[name='extra']").val().replace(/\s/g,''),
+				code: ywtForm.find("input[name='code']").val(),
+				sid:identifyCode.sid
+			};
+			var progressCircle=null;
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.customerQuery,
+				type: 'post',
+				contentType: "application/json",
+				data:JSON.stringify(postD),
+				dataType: 'json',
+				beforeSend:function(){
+					progressCircle=new ProgressCircle();
+				},
+				success: function (data) {
+					
+					// if(data.success){
+					// 	progressCircle.goEnd(function(){
+					// 		var messageBox=new MessageBox('报告已成功发送给“'+pageExdentsD.page.data.data.name +'”！','请等待'+pageExdentsD.page.data.data.name +'审核',"确定",1)
+					// 	})
+					// }else{
+					// 	progressCircle.goEnd(function(){
+					// 		var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
+					// 	})
+					// }
+				}
+			})
+		}
+	});
+	var bankList=new BankList();
+})
+
+</script>
+</html>

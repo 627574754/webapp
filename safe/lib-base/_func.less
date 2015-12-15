@@ -1,0 +1,59 @@
+/*
+	CSS Function
+	purpose:使用这些方法方便以后兼容其他内核，都是需要前缀(webkit)的属性
+	ps:任何疑问或建议可旺旺—曹纯
+*/
+.tap-highlight(){
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.multi-ellipsis(@line){  //多行隐藏
+	.box();
+	-webkit-line-clamp:@line;
+	-webkit-box-orient:vertical;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+.border-radius(@radius){   //圆角
+	border-radius : @radius;
+	//-webkit-border-radius : @radius;
+}
+.border-all-radius(@tl, @tr, @bl, @br) {  //不全圆角
+	border-top-left-radius:@tl;
+	border-top-right-radius:@tr;
+	border-bottom-left-radius:@bl;
+	border-bottom-right-radius:@br;
+}
+.background-size(@param:contain){  //背景图大小
+	background-size : @param;
+	//-webkit-background-size : @param;
+}
+.gradient(@way,@x,@y,@xcolor,@ycolor){  //背景渐变
+	background:-webkit-gradient(@way,@x,@y,@xcolor,@ycolor);
+}
+.box-shadow(@value){  //阴影
+	box-shadow:@value;
+	-webkit-box-shadow:@value;
+}
+.transform(@value){  //transform相关
+	-webkit-transform:@value;
+}
+.box(){  //box
+	display:-webkit-box;
+}
+.box-flex(@n:1){
+	-webkit-box-flex:@n;
+}
+.box-pack(@value:center){  //水平居中，依赖box
+	-webkit-box-pack: @value;
+}
+.box-align(@value:center){  //垂直居中，依赖box
+	-webkit-box-align: @value;
+}
+//箭头，参数分别是旋转角度、箭头颜色、箭头大小、箭头边框大小
+.border-arrow(@deg,@color:#666,@size:6px,@border:3px){
+	border:@color solid;
+	border-width:@border 0 0 @border;
+	width:@size;
+	height:@size;
+	.transform(rotate(@deg));
+}

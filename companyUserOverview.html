@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-用户总览</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/companyUser.css" /> 
+	<!--ie9以下 兼容convas -->
+	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class='inner clearfix'>
+			<div class='left_panel'>
+				<p class='welcome'>早上好，<%=data.name%>公司</p>
+				<ul class='left_menu'>
+					<li>
+						<span class='option_icon_bg'>
+							<em class='option_icon_my_account'></em>
+						</span>
+						<span class='option_font'>我的账户</span>
+						<span class='arr_icon'></span>
+						<ul class='left_menu_level2'>
+							<li><span class='level2_icon'></span><a href="companyUserOverview.html">账户总览</a></li>
+							<li><span class='level2_icon'></span ><a href="companyUserSetting.html">账户基本信息</a></li>
+						</ul>
+					</li>
+					<li>
+						<span class='option_icon_bg'>
+							<em class='option_icon_customer_admin'></em>
+						</span>
+						<span class='option_font'>客户管理</span>
+						<span class='arr_icon'></span>
+						<ul class='left_menu_level2'>
+							<li><span class='level2_icon'></span><a href="companyUserQuery.html">客户信息查询</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class='right_panel'>
+				<p class='current_page_position'>
+					<span class='current_page_position_icon'></span>
+					<a class='current_page_position_level1'>我的账户</a>
+					<span class='relation_symbol'>&gt;</span>
+					<a class='current_page_position_level2'>账户总览</a>
+				</p>
+				<p class='latest_login'>上次登录时间：<%=data.lastLogin%></p>
+				<div class='overview_wraper'>
+					<p class='overview_wraper_title'>数据统计<span class='overview_wraper_title_sub'>（从<%=data.createTime%>到<%=data.nowTime%>）</span></p>
+					<div class='clearfix'>
+						<dl class='query_customer_number count_box'>
+							<dt>累计查询客户数</dt>
+							<hr/>
+							<dd><span class='query_customer_number_icon'></span><span class='count_box_number'><%=data.queryNum%></span><span class='count_box_fix_height'>个</span></dd>
+						</dl>
+						<dl class='generate_report_number count_box'>
+							<dt>累计生成报告数</dt>
+							<hr/>
+							<dd><span class='generate_report_number_icon'></span><span class='count_box_number'><%=data.queryNum%></span><span class='count_box_fix_height'>个</span></dd>
+						</dl>
+					</div>
+					<div class='flot_chart'>
+						<p class='flot_chart_title'>查询流水客户数
+							<span class='flot_chat_time_control'><a class='checked'>日</a><a>月</a></span>
+						</p>
+						<div class='chart_plot'>
+						</div>
+					</div>
+					<div class='flot_pie'>
+						<p class='flot_pie_title'>客户所属银行分布</p>
+						<div class='pie_plot'>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/jquery.flot.min.js'></script>
+<script src='js/jquery.flot.pie.min.js'></script>
+<script src='js/common.js'></script>
+<script>
+/*flot chart 点形状扩展*/
+(function ($) {
+    function processRawData(plot, series, datapoints) {
+        // we normalize the area of each symbol so it is approximately the
+        // same as a circle of the given radius
+
+        var handlers = {
+            square: function (ctx, x, y, radius, shadow) {
+                // pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
+                var size = radius * Math.sqrt(Math.PI) / 2;
+				ctx.rect(x - size,y - size,size + size,size + size);
+            },
+			fillSquare: function(ctx, x, y, radius, shadow){
+				var size=radius;
+				ctx.lineWidth=size*2;
+				ctx.rect(x - size, y - size, size + size, size + size);
+			},
+            diamond: function (ctx, x, y, radius, shadow) {
+                // pi * r^2 = 2s^2  =>  s = r * sqrt(pi/2)
+                var size = radius * Math.sqrt(Math.PI / 2);
+                ctx.moveTo(x - size, y);
+                ctx.lineTo(x, y - size);
+                ctx.lineTo(x + size, y);
+                ctx.lineTo(x, y + size);
+                ctx.lineTo(x - size, y);
+            },
+            triangle: function (ctx, x, y, radius, shadow) {
+                // pi * r^2 = 1/2 * s^2 * sin (pi / 3)  =>  s = r * sqrt(2 * pi / sin(pi / 3))
+                var size = radius * Math.sqrt(2 * Math.PI / Math.sin(Math.PI / 3));
+                var height = size * Math.sin(Math.PI / 3);
+                ctx.moveTo(x - size/2, y + height/2);
+                ctx.lineTo(x + size/2, y + height/2);
+                if (!shadow) {
+                    ctx.lineTo(x, y - height/2);
+                    ctx.lineTo(x - size/2, y + height/2);
+                }
+            },
+            cross: function (ctx, x, y, radius, shadow) {
+                // pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
+                var size = radius * Math.sqrt(Math.PI) / 2;
+                ctx.moveTo(x - size, y - size);
+                ctx.lineTo(x + size, y + size);
+                ctx.moveTo(x - size, y + size);
+                ctx.lineTo(x + size, y - size);
+            }
+        };
+
+        var s = series.points.symbol;
+        if (handlers[s])
+            series.points.symbol = handlers[s];
+    }
+    
+    function init(plot) {
+        plot.hooks.processDatapoints.push(processRawData);
+    }
+    
+    $.plot.plugins.push({
+        init: init,
+        name: 'symbols',
+        version: '1.0'
+    });
+})(jQuery);
+//解析页面模板
+var pageExdentsD={page:{data:{data:{}}}};
+$.ajax({
+	url:globalConifg.baseUrl+globalConifg.api.getUserInfoDetail,
+	type:'post',
+	dataType:'json',
+	async:false,
+	success:function(data){
+		if(data.success) {
+			pageExdentsD.page.data.data=data.data;
+		}
+	}
+});
+$.ajax({
+	url:globalConifg.baseUrl+globalConifg.api.getTotle,
+	type:'get',
+	dataType:'json',
+	async:false,
+	success:function(data){
+		if(data.success) {
+			pageExdentsD.page.data.data.queryNum=data.data;
+		}
+	}
+});
+$.ajax({
+	url:globalConifg.baseUrl+globalConifg.api.getLastLoginInfo,
+	type:'post',
+	dataType:'json',
+	async:false,
+	success:function(data){
+		if(data.success) {
+			pageExdentsD.page.data.data.lastLogin=data.data;
+		}
+	}
+});
+Date.prototype.Format = function (fmt) { //author: meizz
+	var o = {
+		"M+": this.getMonth() + 1, //月份
+		"d+": this.getDate(), //日
+		"h+": this.getHours(), //小时
+		"m+": this.getMinutes(), //分
+		"s+": this.getSeconds(), //秒
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+		"S": this.getMilliseconds() //毫秒
+	};
+	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o)
+		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	return fmt;
+}
+if(pageExdentsD.page.data.data.lastLogin==0) {
+	pageExdentsD.page.data.data.lastLogin = new Date().Format("yyyy-MM-dd hh:mm:ss");
+}
+pageExdentsD.page.data.data.createTime=new Date(pageExdentsD.page.data.data.createTime).Format("yyyy-MM-dd");
+pageExdentsD.page.data.data.nowTime=new Date().Format("yyyy-MM-dd");
+var pageMVC=new PageMVC();
+pageMVC.extendsData(pageExdentsD);
+pageMVC.temp();
+$(function(){
+	$('.flot_chat_time_control').find('a').each(function(index){
+		$(this).click(function(){
+			var checked='';
+			$(this).addClass('checked').siblings().removeClass('checked');
+			if(index===0){
+				checked='d';
+			}else{
+				checked='m';
+			}
+			$.ajax({
+				url:globalConifg.baseUrl+globalConifg.api.countByPerson,
+				type:'get',
+				dataType:'json',
+				async:true,
+				data:{
+					t:checked
+				},
+				success:function(data){
+					if(data.success) {
+						showCharts(data.data,index);
+					}
+				}
+			});
+		})
+	}).eq(0).trigger('click');
+	function formatTime(day){
+		var timeData=[31,28,31,30,31,30,31,31,30,31,30,31];
+		var year=new Date().getFullYear();
+		if(((year % 4)==0) && ((year % 100)!=0) || ((year % 400)==0)){
+			timeData[1]=29;
+		}
+		var day=parseInt(day);
+		var month=0;
+		var i=0
+		for(;i<timeData.length;i++){
+			day+=-timeData[i]
+			if(day<=0){
+				day=day+timeData[i];
+				month=i+1;
+				break;
+			}
+		}
+		return month+"-"+day;
+	}
+	function showTooltip(x, y, contents) {  
+		$('<div id="tooltip">' + contents + '</div>').css( {  
+			position: 'absolute',  
+			display: 'none',  
+			top: y + 10,  
+			left: x + 10,  
+			border: '1px solid #fdd',  
+			padding: '2px',  
+			'background-color': '#dfeffc',  
+			opacity: 0.80  
+		}).appendTo("body").fadeIn(200);  
+	}  
+	function showCharts(data,index){
+		var chartsData=[[]];
+		for(var i=0;i<data.length;i++){
+			for(var j in data[i]) {
+				chartsData[0][i] =[];
+				chartsData[0][i][0]=j;
+				chartsData[0][i][1]=data[i][j];
+			}
+		}
+		var settings={
+			series: {
+				color:'#0ca6f0',
+				points: {
+					show: true,
+					radius: 2,
+					symbol: "fillSquare"
+				},
+				lines: { show: true}
+			},
+			grid: {
+				hoverable: true,
+				clickable: true,
+				backgroundColor:'#f8f8f8',
+				borderWidth:0
+			},
+			xaxis:{
+			},
+			yaxis:{
+				min:0,
+				minTickSize:1,
+				tickDecimals:0
+			},
+			shadowSize:0
+		}
+		//chartsData[0]=[["296", 12],["297", 12],["298", 12],["299", 12],["300", 12],["301", 12],["302", 12],["303", 12],["304", 12],["305", 12],["306", 12],["307", 12],["308", 12],["309", 12],["310", 12],["311", 12],["312", 12],["313", 12],["314", 12],["315", 12],["316", 12]];
+		//chartsData[0]=[["2015-10", 12],["2015-11", 12],["2015-12", 12],["2016-1", 12],["2016-2", 12],["2016-3", 12],["2016-4", 12]]
+		if(index===0){
+			chartsData[0]=chartsData[0].reverse();
+			if(chartsData[0].length>15){
+				chartsData[0].length=15;
+			}
+			chartsData[0].reverse();
+			var ticks=[];
+			for(var i=0;i<chartsData[0].length;i++){
+				ticks[i]=parseInt(chartsData[0][i][0]);
+			}
+			settings.xaxis.ticks=ticks;
+			settings.xaxis.tickFormatter=function(axis){
+				return formatTime(axis);
+			}
+		}else if(index===1){
+			var ticks=[];
+			for(var j=0;j<chartsData[0].length;j++){
+				var time=chartsData[0][j][0];
+				var year=parseInt(time.split('-')[0]);
+				var month=parseInt(time.split('-')[1]);
+				time=year*12+month-1;
+				chartsData[0][j][0]=time;
+				ticks.push(time);
+			}
+			chartsData[0].sort(function(a,b){
+				return a[0]-b[0];
+			})
+			if(chartsData[0].length>12){
+				chartsData[0].length=12;
+			}
+			settings.xaxis.ticks=ticks;
+			settings.xaxis.tickFormatter=function(axia){
+				var year=Math.floor(axia/12);
+				var month=(axia % 12)+1; 
+				return year+'-'+month;
+			}
+		}
+		var plotChart=$.plot(".chart_plot", chartsData,settings );
+		$(".chart_plot").bind("plothover", _.throttle(function (event, pos, item) {
+			 if (item) {  
+                if (previousPoint != item.dataIndex) {  
+                    previousPoint = item.dataIndex;  
+                    $("#tooltip").remove();  
+                    var y = item.datapoint[1].toFixed(0);  
+  
+                    var tip = "数量：";  
+                    showTooltip(item.pageX, item.pageY,tip+y);  
+                }  
+            }  
+            else {  
+                $("#tooltip").remove();  
+                previousPoint = null;  
+            }  
+		},300));
+	}
+	
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.countByBank,
+		type:'get',
+		dataType:'json',
+		async:true,
+		success:function(data){
+			if(data.success) {
+				showPie(data.data);
+			}
+		}
+	});
+	function showPie(data){
+		var pieData=[];
+		for(var i=0;i<data.length;i++){
+			for(var j in data[i]) {
+				pieData[i] ={};
+				pieData[i]['label']=j;
+				pieData[i]['data']=data[i][j];
+			}
+		}
+		var plotPie=$.plot('.pie_plot', pieData, {
+			series: {
+				pie: {
+					show: true,
+					show: true,
+					radius: 1,
+					label: {
+						show: true,
+						radius: 3/4,
+						formatter: labelFormatter,
+						background: {
+							opacity: 0.5
+						}
+					}
+				}
+			},
+			legend: {
+				show: true
+			}
+		});
+	}
+	function labelFormatter(label, series) {
+		return "<div style='font-size:8pt;color:white;'>"+Math.round(series.percent)+"%</div>";
+	}
+})
+$(function(){
+	var leftMenu=new LeftMenu([0,0]);
+})
+</script>

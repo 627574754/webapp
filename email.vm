@@ -1,0 +1,65 @@
+<table style='width:800px;margin:0 auto;' cellspacing=0 cellpadding=0>
+	<thead>
+		<tr>
+			<td style='height:85px;'>
+				<img src='http://114.141.162.113/dola/images/logo.png'>
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style='background:#d8eaf2;'>
+				<table style='margin:90px auto;' cellspacing=0 cellpadding=0>
+					<tr>
+						<td>
+							<table style='background:#eee;margin-left:41px;width:481px' cellspacing=0 cellpadding=0>
+								<tr>
+									<td>
+										<table style='background:#fff;width:444px;margin:15px 18px 0 19px'>
+											<tr>
+												<td style='padding:30px 20px;font-family:"Microsoft Yahei"'>
+													尊敬的会员
+												</td>
+												
+											</tr>
+											<tr>
+												<td style='padding:0 20px;word-break:break-all;font-family:"Microsoft Yahei"'>
+												你的安全桥平台账号已成功创建，请点击下方按钮验证账号。
+												为保障您的账号安全，请您在30分钟内点击该链接。若您没有
+												申请过邮箱注册，请忽略此邮件，由此给您带来的不便敬请谅解。
+
+												</td>
+											</tr>
+											<tr>
+												<td style='padding:50px 110px 40px'>
+													<a style="display:block;height:50px;width:210px;background-color:#f56c42;font-family:'Microsoft Yahei';font-weight:normal;font-size:18px;color:white;line-height:50px;text-align:center;text-decoration:none;border-radius:3px;" target="_blank" href="${obj}">
+													验证账号
+													</a>
+												</td>
+											</tr>
+											<tr>
+												<td style='padding:0 20px;font-size:12px;color:#999;font-family:"Microsoft Yahei"'>
+												如果上面按钮点击无效，请把下面网页地址复制到浏览器地址栏打开；
+												</td>
+											</tr>
+											<tr>
+												<td style='padding:0 20px;word-break:break-all;'>
+												<a href="${obj}" style='color:#00a5b4;font-family:"Microsoft Yahei"'>${obj}</a>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src='http://114.141.162.113/dola/images/mail.jpg'>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

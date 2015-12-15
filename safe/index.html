@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--允许全屏-->
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="apple-touch-fullscreen"/>
+<meta content="telephone=no,email=no" name="format-detection"/>
+
+<!--<link rel="Shortcut Icon" href="favicon.png" type="image/x-icon" />-->
+<link rel="stylesheet" type="text/css" href="/dola/safe/assets/safe.css">
+<title>安全桥</title>
+</head>
+<body>
+	<!--首页 start-->
+	<div class="wrap">
+		<header>
+			<div class="logo"></div>
+			<div class="title">信任合作伙伴</div>
+		</header>
+		<div class="home-container">
+			<div class="c-logo"></div>
+			<div class="content">
+				<p>为了尽快获得“宜信”公司提供的服务，现需要你同意并授权《用户服务协议》通过“安全桥”获取银行流水账单。</p>
+				<p>你的银行流水账单将会直接被传递给“宜信”公司，不会被任何第三方机构获取</p>
+			</div>
+			<div class="mark">
+				<div class="mark-icon icon1"></div>
+				<span class="mark-txt">银行级别加密 保证信息安全</span>
+			</div>
+			<div class="mark">
+				<div class="mark-icon icon2"></div>
+				<span class="mark-txt">CFCA国家权威机关检测</span>
+			</div>
+			<div class="button" id="agreeBtn">我同意</div>
+		</div>
+	</div>
+	<!--选择银行-->
+	<div class="wrap none">
+		<header>
+			<div class="logo"></div>
+			<div class="title">信任合作伙伴</div>
+		</header>
+		<div class="slt-container">
+			<div class="title">选择银行</div>
+			<div class="slt-wrap" id="bankList">
+				<div class="slt-item" data-name="中国银行" data-bid="BOC">
+					<i class="item-logo logo1"></i><span class="txt">中国银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="农业银行" data-bid="ABC">
+					<i class="item-logo logo2"></i><span class="txt">农业银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="工商银行" data-bid="ICBC">
+					<i class="item-logo logo3"></i><span class="txt">工商银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="建设银行" data-bid="CCB">
+					<i class="item-logo logo4"></i><span class="txt">建设银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="招商银行" data-bid="CMB">
+					<i class="item-logo logo1"></i><span class="txt">招商银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="兴业银行" data-bid="CIB">
+					<i class="item-logo logo1"></i><span class="txt">兴业银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="光大银行" data-bid="CEB">
+					<i class="item-logo logo1"></i><span class="txt">光大银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="民生银行" data-bid="CMBC">
+					<i class="item-logo logo1"></i><span class="txt">民生银行</span> <i class="arr"></i>
+				</div>
+				<div class="slt-item" data-name="平安银行" data-bid="SPABANK">
+					<i class="item-logo logo1"></i><span class="txt">平安银行</span> <i class="arr"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--提交查询信息-->
+	<div class="wrap none">
+		<header>
+			<div class="backWrap" data-pn="1"><i class="back-icon"></i><span class="back-txt">返回</span></div>
+		</header>
+		<div class="search-container">
+			<div class="title">
+				<i class="icon"></i>
+				<h4 class="txt">查询<span id="bankName"></span>流水</h4>
+			</div>
+			<div class="tab-wrap">
+				<div class="tab cur tabItem">卡号</div>
+				<div class="tab tabItem">一网通用户</div>
+			</div>
+			<!--卡号-->
+			<form class="form tabCnt" id="khForm">
+				<div class="group">
+					<label class="label">卡号：</label>
+					<div class="ipt"><input type="text" name="card" data-msg="卡号"></div>
+				</div>
+				<div class="group">
+					<label class="label">查询密码(非交易密码)：</label>
+					<div class="ipt short"><input type="password" name="password" data-msg="查询密码"></div>
+					<i class="arr"></i>
+				</div>
+				<div class="group">
+					<label class="label">验证码：</label>
+					<div class="ipt short"><input type="text" name="code" data-msg="验证码"></div>
+					<div class="vercode"><img class="srhCodeImg" src=""></div>
+				</div>
+			</form>
+			<!--一网通-->
+			<form class="form tabCnt none" id="ywtForm">
+				<div class="group">
+					<label class="label">登录名：</label>
+					<div class="ipt"><input name="name" type="text" data-msg="登录名"></div>
+				</div>
+				<div class="group">
+					<label class="label">查询密码(非交易密码)：</label>
+					<div class="ipt short"><input name="password" type="password" data-msg="查询密码"></div>
+					<i class="arr"></i>
+				</div>
+				<div class="group">
+					<label class="label">银行卡4位尾号：</label>
+					<div class="ipt short"><input name="extra" type="text" data-msg="银行卡4位尾号"></div>
+				</div>
+				<div class="group">
+					<label class="label">验证码：</label>
+					<div class="ipt short"><input name="code" type="text" data-msg="验证码"></div>
+					<div class="vercode"><img class="srhCodeImg" src=""></div>
+				</div>
+			</form>
+			<div class="button" id="searchBtn">确定</div>
+			<a href="#" class="qa">常见问题</a>
+		</div>
+	</div>
+	<!--手机验证-->
+	<div class="wrap none">
+		<header>
+			<div class="backWrap" data-pn="2"><i class="back-icon"></i><span class="back-txt">返回</span></div>
+		</header>
+		<div class="valid-container">
+			<div class="title">
+				<i class="icon"></i>
+				<h4 class="txt">查询招商银行流水</h4>
+			</div>
+			<div class="tips-wrap">
+				<p class="tips">安全桥提示：为了确定是你本人进行查询流水操作，还需要你填写下面信息。</p>
+				<p class="tips">放心，这是最后一步操作。</p>
+			</div>
+			<form class="form" id="validForm">
+				<div class="group">
+					<label class="label">安全验证手机号：</label>
+					<div class="ipt ipt1"><input type="text" disabled="disabled" name="phone" id="phone" data-msg="手机号" ></div>
+				</div>
+				<div class="group">
+					<div class="ipt"><input type="text" placeholder="请输入短信验证码" name="phoneCode" data-msg="短信验证码"></div>
+					<!-- <i class="btnx" id="getCodeBtn">获取验证码</i> -->
+				</div>
+				<div class="group codeWrap none">
+					<label class="label">验证码：</label>
+					<div class="ipt short"><input type="text" name="code" data-msg="验证码"></div>
+					<div class="vercode"><img src=""></div>
+				</div>
+			</form>
+			<div class="button" id="validBtn">确定</div>
+			<a href="#" class="qa">常见问题</a>
+		</div>
+	</div>
+	<!--提交成功-->
+	<div class="wrap none">
+		<header>
+			<div class="backWrap" data-pn="2"><i class="back-icon"></i><span class="back-txt">返回</span></div>
+		</header>
+		<div class="success-container">
+			<div class="status-wrap">
+				<p class="tips stsTip">可能需要2分钟</p>
+				<div class="status">
+					<div id="process" class="process"><i class="ok"></i></div>
+				</div>
+				<div class="stsMsg">
+					<p class="tips">正在获取报告</p>
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="/dola/safe/src/lib/zepto.js" type="text/javascript"></script>
+<script src="/dola/safe/src/lib/notification.js" type="text/javascript"></script>
+<script src="/dola/safe/src/lib/md5.js" type="text/javascript"></script>
+<script src="/dola/safe/src/common.js" type="text/javascript"></script>
+<script src="/dola/safe/src/main.js" type="text/javascript"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

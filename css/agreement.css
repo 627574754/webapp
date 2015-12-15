@@ -1,0 +1,29 @@
+#content{
+    color:#333;
+}
+.agreement_title{
+    -moz-box-shadow: 0px 6px 6px #dddcdc;
+    -webkit-box-shadow: 6px 0px 6px #dddcdc;
+    box-shadow: 0px 6px 6px #dddcdc;
+   position:relative;
+}
+.agreement_title h1{
+    float:left;
+    width:50%;
+    font-size:16px;
+    line-height: 80px;
+    font-weight: bold;
+}
+.agreement_content{
+    background:#f2f2f2;
+}
+.agreement_content dt {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+.agreement_content dd {
+    padding: 5px 0 10px 20px;
+    line-height:2;
+    font-size:14px;
+}

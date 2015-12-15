@@ -1,0 +1,62 @@
+.content1{
+	background:#d0e1f3;
+	height:554px;
+}
+.content1 .inner{
+	background:url(../images/aboutUs_content1_bg.jpg) no-repeat;
+	overflow:hidden;
+}
+.content1 h2{
+	color:#fff;
+	font-size:40px;
+	text-align:center;
+	margin-top:130px;
+	margin-bottom:20px;
+
+}
+.content1 h3{
+	color:#fff;
+	font-size:16px;
+	width:600px;
+	margin:0 auto;
+	text-align:justify;
+
+}
+.content1 p{
+	margin-bottom:18px;
+}
+.content2{
+	padding-bottom:100px;
+}
+.content2 h2{
+	font-size:24px;
+	color:#333;
+	text-align:center;
+	margin:100px 0 160px 0;
+}
+.content2_box{
+	width:400px;
+	height:345px;
+	background:#237fdb;
+	text-align:center;
+}
+.content2_portrait{
+	margin-top:-93px;
+}
+.content2_left{
+	float:left;
+}
+.content2_right{
+	float:right;
+}
+.content2_box h2{
+	font-size:24px;
+	color:#fff;
+	margin:5px 0;
+}
+.content2_box h3{
+	font-size:16px;
+	color:#fff;
+	padding:0 10px;
+	line-height:1.6;
+}

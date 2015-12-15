@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-首页</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/flexslider.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/home.css" /> 
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class="flexslider"> 
+			  <ul class="slides"> 
+				<li>
+					<img src="images/slider_1.jpg" />
+				</li> 
+				<li><img src="images/slider_2.jpg" /></li> 
+				<li><img src="images/slider_3.jpg" /></li> 
+			  </ul> 
+			  <div class='flexslider_extends'>
+				<button class='btn login_btn'>登&emsp;&emsp;录</button>
+				<a href="regist.html"><button class='btn regist_btn'>立即注册</button></a>
+			  </div>	
+		</div>
+		<div class='inner service_intro_list clearfix'>
+			<dl class='service_intro_box_a'>
+				<dt>
+					<div class='service_icon'></div>
+					<h2 class='service_intro_title'>安全桥是什么？</h2>
+				</dt>
+				<dd>
+					<h3>我们致力于：</h3>
+					<h4>帮助金融机构获得真实客户银行流水</h4>
+					<h4>帮助金融机构提高客户转化率</h4>
+					<h4>帮助金融机构节约人力成本</h4>
+					<h4 class='fill_height'>安全桥整合最优秀的技术人才，以客户为中心，提供品质可保障的服务</h4>
+				</dd>
+			</dl>
+			<dl class='service_intro_box_b'>
+				<dt>
+					<div class='service_icon'></div>
+					<h2 class='service_intro_title'>解决什么问题？</h2>
+				</dt>
+				<dd>
+					<h3>虚假银行流水导致坏账:</h3>
+					<h4>由于客户递交的纸质银行流水单（或者屏幕截图）虚假导致坏账</h4>
+					<h3>打印银行流水麻烦导致客户流失:</h3>
+					<h4>需要客户亲自去银行打印流水，客户觉得耗费时间太多一直犹豫过了冲动期，从而流失</h4>
+					<h3>要设置专人处理银行流水:</h3>
+					<h4>由于是纸质流水单（或者截图），机构需要专门的人读取这些数据，处理客户数据，校验真伪，耗人耗财</h4>
+				</dd>
+			</dl>
+			<dl class='service_intro_box_c'>
+				<dt>
+					<div class='service_icon'></div>
+					<h2 class='service_intro_title'>提供什么服务？</h2>
+				</dt>
+				<dd>
+					<h4>轻松注册，即可获得平台提供的服务。经客户授权，在线实时获取客户银行流水，提高效率，降低损失。</h4>
+					<h4 class='fill_height'>目前支持  工行、建行、农行、中行、交通银行、平安银行、招商银行等15家银行</h4>
+					<p ><a class='btn' href="regist.html">免费获得服务</a></p>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/jquery.flexslider-min.js'></script>
+<script src='js/common.js'></script>
+<script>
+	//解析页面模板
+	var pageMVC=new PageMVC();
+	pageMVC.temp();
+	if(isLogin.status.success){
+		$('.flexslider_extends').hide();
+	}
+	$('.flexslider').flexslider();
+</script>

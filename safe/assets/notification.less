@@ -1,0 +1,119 @@
+.notification(@dpr:1){
+	.c-float-padding(@t:10px*@dpr, @r:10px*@dpr, @b:10px*@dpr, @l:10px*@dpr) {padding:@t @r @b @l;}
+	
+	//基本背景色
+	.c-float-baseBg(@baseBg:rgba(23, 23, 23, 0.9)) {background-color:@baseBg}
+	
+	//从顶到底的背景渐变
+	.c-float-linear(@linear-t,@linear-b){
+		.gradient(linear, left top, left bottom, color-stop(0%,@linear-t), color-stop(100%,@linear-b));
+	}
+	
+	// button样式
+	.c-float-button(@color: #949494) {
+		.c-float-padding(6px*@dpr,9px*@dpr,6px*@dpr,9px*@dpr);
+		color:@color;
+		.c-float-linear(#404040,#2e2e2e);
+		border:none;
+		.border-radius(2px*@dpr);
+	}
+	
+	// 大按钮样式
+	.c-float-big-button() {
+		width: 80px*@dpr;
+		height: 30px*@dpr;
+		line-height: 30px*@dpr;
+		color: #444;
+		font-size:1rem;
+		.c-float-linear(#EEE,#999);
+		border: none;
+		.border-radius(2px*@dpr);
+		padding: 0;
+	}
+	
+	// 带按钮 消息  应用
+	.c-float-modePop {
+		text-align:center;
+	
+		.warnMsg {
+			color:#fff;
+		}
+	
+		button {
+			.c-float-button();
+		}
+	}
+	
+	// 新的弹出层
+	.c-float-shade {
+		width: 100%;
+		display: block;
+		position: absolute;
+		z-index: 99;
+		background-color: #000;
+		opacity:0.5;
+		top: 0;
+		left: 0;
+		
+		&.hide {
+			display: none;
+		}
+	}
+	
+	.c-float-popWrap {
+		width: 220px*@dpr;
+		border-radius: 2px*@dpr;
+		z-index: 9999;
+		position: absolute;
+		overflow: hidden;
+	
+	
+		.c-float-modePop {
+			background-color: rgba(51, 51, 51, 0.9);
+			border-radius: 2px*@dpr;
+			padding: 15px*@dpr;
+	
+			.warnMsg {
+				padding: 0px;
+				font-size: 1rem;
+			}
+	
+			.content {
+				margin-top: 10px*@dpr;
+			}
+	
+			.doBtn {
+				width: 190px*@dpr;
+				margin-top: 10px*@dpr;
+			}
+	
+			button {
+				.c-float-big-button();
+				margin: 10px*@dpr 5px*@dpr 0;
+			}
+		}
+	
+		&.hide {
+			display: none;
+			.box-shadow(none);
+		}
+		
+		&.show {
+			display: block;
+			.box-shadow(0px 0px 2px*@dpr 2px*@dpr rgba(0, 0, 0, 0.3));
+		}
+	
+		&.msgMode .c-float-modePop {
+			.content, .doBtn {display: none;}
+		}
+	
+		&.alertMode .c-float-modePop {
+			.content {display: none;}
+			.doBtn .cancel {display: none;}
+		}
+	
+		&.confirmMode .c-float-modePop {
+			.content, .doBtn {display: block;}
+		}
+	}
+}

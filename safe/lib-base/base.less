@@ -1,0 +1,52 @@
+@import '_func';
+body{   
+    //此处有可能设为html,body{xx}，此时如果body不设置height:100%时，html和body的显示大小不同，
+    //通过覆盖背景色并观察页面最底部颜色区别可以发现，但只设置body时，无此问题，原因未知。
+	background-color:#eee;
+	color:#333;
+	-webkit-text-size-adjust:100%;
+}
+a{
+	color:#333;
+}
+.wrap{
+	min-width:320px;
+	/*max-width:1000px;*/
+	margin:0 auto;
+	position:relative;
+}
+/* 常用 */
+.clearfix{
+	&:after{display: block; content: ''; clear: both; visibility: hidden;}
+}
+.none{display:none!important;}  //优先级最高，防止被display的block,inline-block,box覆盖掉
+.gap{padding:0 10px;}
+/* 省略 */
+.omit{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+/* 颜色 */
+.orange{color:#ff5000;}
+.green{color:#008c46;}
+.red{color:#d40000;}
+.gray{color:#666;}
+.lgray{color:#999;}
+/* 箭头 android2.3 htc fixed上的bug，暂时用图片替代 */
+.aw{
+	display:inline-block;
+	width:13px;
+	height:13px;
+	background-repeat:no-repeat;
+	background-position:center center;
+	.background-size(contain);
+}
+/* 上 */
+.aw.a-d{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAQCAMAAAA/D5+aAAAAA3NCSVQICAjb4U/gAAAAbFBMVEX///////8uLi7///////8uLi7///89PT3///9CQkL///9NTU3///9QUFBQUFDv7+9YWFhVVVVYWFjn5+fc3NzQ0NC7u7tcXFzBwcG4uLicnJyBgYFubm5tbW1mZmZiYmJgYGBeXl5cXFxaWloGAlKPAAAAJHRSTlMAEREiMzNEVWZmd4iZmarMzMzd7u7u7u7///////////////+hr2cCAAAACXBIWXMAAAsSAAALEgHS3X78AAAAF3RFWHRDcmVhdGlvbiBUaW1lADIwMTMuMy4xNOslZMMAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAAkElEQVQYlXXQWRLCIAwA0JQWxYUqdQGXhqX3v6OUIiJKfjKTl8kkAUjB1KgY/AumEFFta4J429cE8V5aktmaing7ND+ijQ758bG3OD6ZaG0hG1jLaKeuEAAa7XnuCsltBdcv8Xa0oTJeIHRpu0vrEuFmMjJM0JZnRxJhNVpJ/YTBuVy89ZMb6NLVlx/lggC8AHj5FeeTkNFlAAAAAElFTkSuQmCC);}
+/* 下 */
+.aw.a-u{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAQCAMAAAA/D5+aAAAAA3NCSVQICAjb4U/gAAAAbFBMVEX///////8uLi7///////8uLi7///89PT3///9CQkL///9NTU3///9SUlJPT09NTU1SUlLv7+9SUlJYWFjn5+fc3NzQ0NBcXFzBwcG4uLicnJyBgYFubm5tbW1mZmZiYmJgYGBeXl5cXFxaWlqfEMLoAAAAJHRSTlMAEREiMzNEVWZmd4iZmZmZqszM3e7u7u7///////////////+LJ73KAAAACXBIWXMAAAsSAAALEgHS3X78AAAAF3RFWHRDcmVhdGlvbiBUaW1lADIwMTMuMy4xNOslZMMAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAAi0lEQVQYlXXJWxKCMBBE0TYaxRcgqAkokzDsf48OkNIQi/vTVX0AqKpAUlGpcXQ9cKkWkjPXWsQwub6KLe8dsdEwniSO7CxC5A2eHc2mgxzZTU+D/eM9m9ELsRmwC+Yni0Xs/gp2SATY3oIN10SATTDnUxmtpV+xiF3aFZG+9idizZoAJ7smQGa7WD6rDxYJQyle8wAAAABJRU5ErkJggg==);}
+/* 左 */
+.aw.a-l{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAMAAACJtiw1AAAAA3NCSVQICAjb4U/gAAAAclBMVEX///////8uLi7///////8uLi7///89PT3///9CQkL///9NTU3///9SUlJPT09NTU1SUlLv7+9YWFhSUlJYWFjn5+fc3NzQ0NC7u7tcXFzBwcG4uLicnJyBgYFubm5tbW1mZmZiYmJgYGBeXl5cXFxaWlp7foPPAAAAJnRSTlMAEREiMzNEVWZmd4iZmZmZqszMzN3u7u7u7v///////////////7TVW48AAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAXdEVYdENyZWF0aW9uIFRpbWUAMjAxMy4zLjE06yVkwwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAACBSURBVBiVY2CAAzZxSVYGJMAiJq+ELMIiJqegoCzCBOMziwL5CgoqwlA+o6AsiK+owo/CV1AWQOWrCEGN4JHByldG48MdwSWNyueQQuUzQPiKquwwJ8pDFPDC/QBVocIJE+CgTIQbXUSZj7AILIDgIvAghIogBTJYRBk1YjgkQHwA41sXX+CilT8AAAAASUVORK5CYII=);width:8px;}
+/* 右 */
+.aw.a-r{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAaCAMAAACJtiw1AAAAA3NCSVQICAjb4U/gAAAAbFBMVEX///////8uLi7///////8uLi7///89PT3///9CQkL///9NTU3///9SUlJPT09NTU1SUlLv7+9SUlJYWFjn5+fc3NzQ0NBcXFzBwcG4uLicnJyBgYFubm5tbW1mZmZiYmJgYGBeXl5cXFxaWlqfEMLoAAAAJHRSTlMAEREiMzNEVWZmd4iZmZmZqszM3e7u7u7///////////////+LJ73KAAAACXBIWXMAAAsSAAALEgHS3X78AAAAF3RFWHRDcmVhdGlvbiBUaW1lADIwMTMuMy4xNOslZMMAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAAe0lEQVQYlWNgYGAVl+RgQAKs4gpyEkgiTEIKcnLIIkJKcnIoIvxK8mgifIqERbgxdHFSJgJ3IK8CWEAWxmdXRlUB8iGyGTC+JBcqX4oHFgJKaHxlrHxpQUaIgADEQjifH40PDUIZEWZ4IAsDRWREWVCiQRaZDxIRY0PwAEokFgsI0/uKAAAAAElFTkSuQmCC);width:8px;}

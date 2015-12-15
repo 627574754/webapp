@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-关于我们</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/aboutUs.css" /> 
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class='content1'>
+			<div class='inner'>
+				<h2>资深行业背景的专业管理运营团队</h2>
+				<h3>
+					<p>我们的团队来自顶级的咨询公司，互联网金融企业和互联网高科技公司，对互联网金融，数据产品，数据安全等相关领域具有多年的从业经验。我们的专业背景包括IBM, 德勤，阿里巴巴，服务过的客户包括多家银行，上市企业，小额贷款公司， P2P 企业。 团队不仅具备全球化视野，也有深耕本地市场的多年经验。</p>
+					<p>我们的愿景是，通过我们的努力，可以帮助中国的互联网金融企业和个人用户，建立更好更流畅的用户体验。</p>
+				</h3>
+			</div>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/common.js'></script>
+<script>
+	//解析页面模板
+	var pageMVC=new PageMVC();
+	pageMVC.temp();
+</script>

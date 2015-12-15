@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-注册账号</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/regist.css" />
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class='regist_box inner'>
+			<div class='regist_step_nav clearfix'>
+				<div class='regist_step regist_step_1'>
+					<div class='regist_step_i_box'>
+						<sup>1</sup>
+						<sub>验证账户名</sub>
+					</div>
+				</div>
+				<div class='regist_step regist_step_2'>
+					<div class='connecting_line'></div>
+					<div class='regist_step_i_box'>
+						<sup>2</sup>
+						<sub>企业实名</sub>
+					</div>
+				</div>
+				<div class='regist_step regist_step_3'>
+					<div class='connecting_line'></div>
+					<div class='regist_step_i_box'>
+						<sup>3</sup>
+						<sub>注册成功</sub>
+					</div>
+				</div>
+			</div>
+			<form class="regist_step_1_form">
+			<div class='regist_step_content regist_step_1'>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<em>*</em>用户登录名：
+					</div>
+					<div class='row_right'>
+						<input type='text' class='regist_input' name="email" placeholder='请输入企业邮箱'/>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<em>*</em>登录密码：
+					</div>
+					<div class='row_right'>
+						<input type='password' class='regist_input' name="password" placeholder='请输入8-16位 可以包含 数字、字母、特殊符号'/>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<em>*</em>确认密码：
+					</div>
+					<div class='row_right'>
+						<input type='password' class='regist_input' name="repassword" placeholder='请再次输入密码'/>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<div class='row_left'>
+						<em>*</em>验证码：
+					</div>
+					<div class='row_right'>
+						<input type='text' class='regist_input identify_code' name="identify_code" placeholder='请输入验证码'/>
+						<img class='identify_code_img' src='http://duolaqiao.com/dola/register/getSecurityCode/'/>
+						<a class='change_identiy_code'>换一张</a>
+					</div>
+				</div>
+				<div class='row clearfix'>
+					<label class='checkbox agreement'><input type='checkbox' name="agreement" checked="checked">已经阅读并同意<a href='agreement.html' target="_blank">《安全桥数据解析服务协议》</a></label>
+				</div>
+				<div class='row clearfix'>
+					<button class='btn next_step'>下一步</button><span class='regist_tips'>已经注册过？<a class="login_btn">点击登录</a></span>
+				</div>
+			</div>
+			</form>
+			<div class='regist_step_content regist_step_2_before_enter' style='display:none'>
+				<h3>为了保障账户安全，请完成邮箱验证</h3>
+				<p>我们已向您的邮箱 <span class="email_show"></span>发送了一封验证邮件</p>
+				<div class='mail_tips'>
+					<p>如果没有收到，请看看是否在邮箱的回收站、垃圾邮箱中</p>
+					<p>或者重新发送，点此<a class="resend_email_button">重新发送验证邮件</a></p>
+					<p>如果输入了错误的邮箱地点，点此<a href="regist.html">更换邮箱注册</a></p>
+				</div>
+				<a class='btn mail_button'>进入邮箱查收验证邮件</a>
+			</div>
+
+			<div class='regist_step_content regist_step_2' style='display:none'>
+				<!--企业基本信息-->
+				<form class="regist_step_2_form">
+				<div class='regist_step_2_module'>
+					<div class='regist_step_2_module_title'>
+						<span class='title_icon'></span>
+						<span class='title_main'>企业信息</span>
+						<span class='title_sub'>（按照证书上的内容逐字填写） </span>
+					</div>
+					<div class='regist_step_2_module_content'>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								企业名称：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="name"/>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								注册号：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="registerNo"/>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								组织机构代码：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="orgCode"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--法定代表人基本信息-->
+				<div class='regist_step_2_module'>
+					<div class='regist_step_2_module_title'>
+						<span class='title_icon'></span>
+						<span class='title_main'>法定代表人信息:</span>
+					</div>
+					<div class='regist_step_2_module_content'>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								法定代表人归属地：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="legalAddress"/>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								法定代表人姓名：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="legalName"/>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								身份证号：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="legalIdentityNo"/>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_left'>
+								证件有效期：
+							</div>
+							<div class='row_right'>
+								<input type='text' class='regist_input' name="legalIdentityValidity" readonly="readonly" id="date"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>
+				<!--企业证件上传-->
+				<form class="regist_step_2_form_pic" method="post" enctype="multipart/form-data" action="http://duolaqiao.com/dola/json/upload">
+				<div class='regist_step_2_module'>
+					<div class='regist_step_2_module_title'>
+						<span class='title_icon'></span>
+						<span class='title_main'>企业法人营业执照及组织机构代码证:</span>
+					</div>
+					<div class='regist_step_2_module_content'>
+						<div class='row clearfix'>
+							<div class='row_fb_1'>企业法人营业执照：</div>
+							<div class='row_fb_2'>
+								<div class="upload_field">
+									<div class="preview_container"></div>
+									<span class="add_symbol">+</span>
+									<label class="upload_btn">点击上传<input class="upload_default" type="file" name="pic_regist_code"></label>
+								</div>
+							</div>
+							<div class='row_fb_3'>示例：<img src="images/regist_example_img01.jpg" class="example_img"></div>
+						</div>
+						<div class='row row_fix clearfix'>
+							<div class='row_fb_1'>组织机构代码证：</div>
+							<div class='row_fb_2 clearfix'>
+								<div class="left">
+									<div class="upload_field upload_field_fix">
+										<div class="preview_container"></div>
+										<span class="add_symbol">+</span>
+										<label class="upload_btn">点击上传<input class="upload_default" type="file" name="pic_organization_code_1"></label>
+									</div>
+									<p class="ta_c">正面</p>
+								</div>
+								<div class="left">
+									<div class="upload_field upload_field_fix">
+										<div class="preview_container"></div>
+										<span class="add_symbol">+</span>
+										<label class="upload_btn">点击上传<input class="upload_default" type="file" name="pic_organization_code_2"></label>
+									</div>
+									<p class="ta_c">反面</p>
+								</div>
+							</div>
+							<div class='row_fb_3'>
+								示例：
+								<span class="example_img_container"><img src="images/regist_example_img02.jpg" class="example_img"><i class="example_img_des">正面</i></span>
+								<span class="example_img_container"><img src="images/regist_example_img03.jpg" class="example_img"><i class="example_img_des">反面</i></span>
+							</div>
+						</div>
+						<div class='row clearfix'>
+							<div class='row_fb_1'>企业LOGO上传：</div>
+							<div class='row_fb_2'>
+								<div class="upload_field">
+									<div class="preview_container"></div>
+									<span class="add_symbol">+</span>
+									<label class="upload_btn">点击上传<input class="upload_default" type="file" name="pic_logo"></label>
+								</div>
+							</div>
+							<div class='row_fb_3'>示例：<img src="images/regist_example_img06.jpg" class="example_img"></div>
+						</div>
+					</div>
+				</div>
+				<!--法定代表人证件上传-->
+				<div class='regist_step_2_module'>
+					<div class='regist_step_2_module_title'>
+						<span class='title_icon'></span>
+						<span class='title_main'>法定代表人证件照:</span>
+					</div>
+					<div class='regist_step_2_module_content'>
+						<div class='row clearfix'>
+							<div class='row_fb_1'>法定代表人身份证照片：</div>
+							<div class='row_fb_2 clearfix'>
+								<div class="left">
+									<div class="upload_field">
+										<div class="preview_container"></div>
+										<span class="add_symbol">+</span>
+										<label class="upload_btn">点击上传<input class="upload_default" type="file" name="pic_identify_card_1"></label>
+									</div>
+									<p class="ta_c">正面</p>
+								</div>
+								<div class="left">
+									<div class="upload_field">
+										<div class="preview_container"></div>
+										<span class="add_symbol">+</span>
+										<label class="upload_btn">点击上传<input class="upload_default" type="file" name="pic_identify_card_2"></label>
+									</div>
+									<p class="ta_c">反面</p>
+								</div>
+							</div>
+							<div class='row_fb_3'>
+								示例：
+								<span class="example_img_container"><img src="images/regist_example_img04.jpg" class="example_img"><i class="example_img_des">正面</i></span>
+								<span class="example_img_container"><img src="images/regist_example_img05.jpg" class="example_img"><i class="example_img_des">反面</i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>
+				<div class="row clearfix">
+					<button class="btn next_step regist_step_2_form_submit">下一步</button>
+				</div>
+			</div>
+
+			<div class='regist_step_content regist_step_3' style="display:none">
+				<p class='regist_success_message'><span class='regist_success_message_icon'></span>恭喜你注册成功</p>
+				<p class='service_link'>请牢记你的客户访问域名： <a></a></p>
+			</div>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<!--兼容IE8placeholder-->
+<script src='js/placeholder.min.js'></script>
+<!--验证插件，更改了部分源码-->
+<script src='js/jquery.validate.min.js'></script>
+<!--时间插件，更改了部分源码-->
+<script type="text/javascript" src="js/jquery-ui-datepicker.js"></script>
+
+<script src='js/common.js'></script>
+<script>
+	//解析页面模板
+	var pageMVC=new PageMVC();
+	pageMVC.temp();
+	$(function(){
+		//验证码
+		function IdentifyCode() {
+			this.events();
+		}
+		IdentifyCode.prototype={
+			events:function(){
+				var that=this;
+				$('.change_identiy_code').click(function(){
+					$('.identify_code_img').attr('src',$('.identify_code_img').attr('src')+'?'+new Date().getTime());
+				})
+			}
+		};
+		//注册页面流程
+		function Regist(){
+			this.init();
+		}
+		Regist.prototype={
+			init:function(){
+				var paramobj={};
+				var paramarr=window.location.search.substring(1,window.location.search.length).split('&');
+				for(var i=0;i<paramarr.length;i++){
+					if(paramarr[i]){
+						paramobj[paramarr[i].split('=')[0]]=paramarr[i].split('=')[1]
+					}
+				}
+				var currentStep=paramobj.step?parseInt(paramobj.step):1;
+				this.step(currentStep)
+
+			},
+			step:function(stepNum){
+				$('.regist_step_content').hide();
+				if(stepNum===1){
+					$('.regist_step_nav').find('.regist_step_1').addClass('checked');
+					$('.regist_step_content.regist_step_1').show();
+					//验证码
+					var identyCode=new IdentifyCode();
+				}else if(stepNum===2){
+					$('.regist_step_nav').find('.regist_step_1').addClass('checked');
+					$('.regist_step_nav').find('.regist_step_2').addClass('before_enter');
+					$('.regist_step_content.regist_step_2_before_enter').show();
+				}else if(stepNum===3){
+					if(!isLogin.status.success){
+						this.step(1);
+					}else {
+						$('.regist_step_nav').find('.regist_step_1').addClass('checked');
+						$('.regist_step_nav').find('.regist_step_2').addClass('checked');
+						$('.regist_step_content.regist_step_2').show();
+					}
+				}else if(stepNum===4){
+					if(!isLogin.status.success){
+						this.step(1);
+					}else {
+						$('.regist_step_nav').find('.regist_step_1').addClass('checked');
+						$('.regist_step_nav').find('.regist_step_2').addClass('checked');
+						$('.regist_step_nav').find('.regist_step_3').addClass('checked');
+						$('.regist_step_content.regist_step_3').show();
+						var paramobj={};
+						var paramarr=window.location.search.substring(1,window.location.search.length).split('&');
+						for(var i=0;i<paramarr.length;i++){
+							if(paramarr[i]){
+								paramobj[paramarr[i].split('=')[0]]=paramarr[i].split('=')[1]
+							}
+						}
+						var url=globalConifg.baseUrl+'pers/'+paramobj.url;
+						$('.service_link').find('a')
+								.html(globalConifg.baseUrl+'pers/'+paramobj.url)
+								.attr({
+									'href':globalConifg.baseUrl+'pers/'+paramobj.url,
+									'target':'_blank'
+								})
+					}
+				}
+			}
+		};
+		//链接邮箱
+		var LoginEmail=function(emailAddress){
+			this.hash={
+				'qq.com': 'http://mail.qq.com',
+				'gmail.com': 'http://mail.google.com',
+				'sina.com': 'http://mail.sina.com.cn',
+				'163.com': 'http://mail.163.com',
+				'126.com': 'http://mail.126.com',
+				'yeah.net': 'http://www.yeah.net/',
+				'sohu.com': 'http://mail.sohu.com/',
+				'tom.com': 'http://mail.tom.com/',
+				'sogou.com': 'http://mail.sogou.com/',
+				'139.com': 'http://mail.10086.cn/',
+				'hotmail.com': 'http://www.hotmail.com',
+				'live.com': 'http://login.live.com/',
+				'live.cn': 'http://login.live.cn/',
+				'live.com.cn': 'http://login.live.com.cn',
+				'189.com': 'http://webmail16.189.cn/webmail/',
+				'yahoo.com.cn': 'http://mail.cn.yahoo.com/',
+				'yahoo.cn': 'http://mail.cn.yahoo.com/',
+				'eyou.com': 'http://www.eyou.com/',
+				'21cn.com': 'http://mail.21cn.com/',
+				'188.com': 'http://www.188.com/',
+				'foxmail.com': 'http://www.foxmail.com',
+				'outlook.com': 'http://www.outlook.com'
+			};
+			this.mailBtn=$('.mail_button');
+			this.emailAddress=emailAddress;
+			this.init();
+		};
+		LoginEmail.prototype={
+			init:function(){
+				var _email=this.emailAddress.split('@')[1];
+				if(this.hash[_email]) {
+					this.mailBtn.attr("href", this.hash[_email]);
+				}else{
+					this.mailBtn.hide();
+				}
+			}
+		};
+		//图片预览
+		function Preview(uploadBtn,previewContainer){
+			this.uploadBtn=uploadBtn;
+			this.previewContainer=previewContainer;
+			this.allowExtention=".jpg,.bmp,.gif,.png";
+			this.events();
+		}
+		Preview.prototype={
+			getFileUrl:function(){
+				if (navigator.userAgent.indexOf("MSIE")>=1) {
+					this.uploadBtn.get(0).select();
+					this.uploadBtn.get(0).blur();
+					url = document.selection.createRange().text;
+				}
+				else if(navigator.userAgent.indexOf("Firefox")>0) {
+					url = window.URL.createObjectURL(this.uploadBtn.get(0).files.item(0));
+				} else if(navigator.userAgent.indexOf("Chrome")>0) {
+					url = window.URL.createObjectURL(this.uploadBtn.get(0).files.item(0));
+				}
+				return url;
+			},
+			isFileAllow:function(){
+				var extention=this.uploadBtn.get(0).value.substring(this.uploadBtn.get(0).value.lastIndexOf(".")+1).toLowerCase();
+				if(this.allowExtention.indexOf(extention)>-1) return true;
+				return false;
+			},
+			previewPic:function(fileUrl){
+				var that=this;
+				if(window.FileReader){
+					var reader = new FileReader();
+					reader.readAsDataURL(this.uploadBtn.get(0).files[0]);
+					reader.onload = function(e){
+						that.previewContainer.html($('<img src="'+ e.target.result +'" class="ib_center_middle">'+'<i class="holder"></i>'));
+					}
+				}else{
+					var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+					//$('#imghead').get(0).filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = url;
+					//console.log($('#imghead').get(0).offsetWidth)
+					var img=$('<img style="visibility: hidden;"/>');
+					img.css({
+						'filter':'progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image,src='+fileUrl
+					});
+					this.previewContainer.html(img);
+					var maxWidth=this.previewContainer.outerWidth();
+					var maxHeight=this.previewContainer.outerHeight();
+					var rect = this.clacImgZoomParam(maxWidth, maxHeight, img.width(), img.height());
+					var div=$('<div>')
+					div.css({
+						'width':rect.width,
+						'height':rect.height,
+						'margin-top':rect.top,
+						'margin-left':rect.left,
+						'filter':'progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src='+fileUrl
+					})
+					this.previewContainer.html(div);
+				}
+			},
+			clacImgZoomParam:function( maxWidth, maxHeight, width, height ){
+				var param = {top:0, left:0, width:width, height:height};
+				if( width>maxWidth || height>maxHeight )
+				{
+					rateWidth = width / maxWidth;
+					rateHeight = height / maxHeight;
+
+					if( rateWidth > rateHeight )
+					{
+						param.width = maxWidth;
+						param.height = Math.round(height / rateWidth);
+					}
+					else
+					{
+						param.width = Math.round(width / rateHeight);
+						param.height = maxHeight;
+					}
+				}
+
+				param.left = Math.round((maxWidth - param.width) / 2);
+				param.top = Math.round((maxHeight - param.height) / 2);
+				return param;
+			},
+			events:function(){
+				var that=this;
+				this.uploadBtn.change(function(){
+					var fileUrl=that.getFileUrl();
+					var isFileAllow=that.isFileAllow();
+					if(isFileAllow){
+						that.previewPic(fileUrl);
+					}
+				})
+			}
+
+		};
+		$('.upload_field').each(function(){
+			var preview=new Preview($(this).find('.upload_default'),$(this).find('.preview_container'));
+		})
+		var regist=new Regist();
+		//验证
+		jQuery.validator.addMethod("isValidPwd", function(value, element) {
+			var pwdReg= /^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~\_\-\|\?]{8,16}$/;
+			return this.optional(element) || (pwdReg.test(value));
+		}, "密码格式错误");
+		jQuery.validator.addMethod("isIDcard", function(value, element) {
+			var isIDCardReg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+			return this.optional(element) || (isIDCardReg.test(value));
+		}, "请输入正确的身份证号");
+		//注册流程一验证
+		$('.regist_step_1_form').validate({
+			rules:{
+				email:{
+					required:true,
+					email:true,
+					remote:{
+						url : globalConifg.baseUrl + globalConifg.api.register.checkEmail,
+						type:'get',
+						dataType:'json',
+						data:{email:function(){return $("input[name='email']").val()}}
+					}
+				},
+				password:{
+					required:true,
+					isValidPwd:true
+				},
+				repassword:{
+					required:true,
+					equalTo:'input[name="password"]'
+				},
+				identify_code:{
+					required:true
+				},
+				agreement:{
+					required:true
+				}
+			},
+			messages:{
+				email:{
+					required:'请输入用户名',
+					email:'请输入正确的邮箱',
+				},
+				password:{
+					required:'请输入密码'
+				},
+				repassword:{
+					required:'请输入确认密码',
+					equalTo:'两次输入密码不一致'
+
+				},
+				identify_code:{
+					required:'请输入验证码',
+				},
+				agreement:{
+					required:'请同意协议'
+				}
+			},
+			onkeyup:false,
+			errorPlacement:function(error,element){
+				element.parent().append(error)
+			},
+			highlight:function(element){
+				$(element).addClass('error')
+			},
+			submitHandler:function(){
+				$.ajax({
+					url: globalConifg.baseUrl + globalConifg.api.register.registerUser,
+					type: 'post',
+					contentType: "application/json",
+					data:JSON.stringify({
+						email:$("input[name='email']").val(),
+						password:$("input[name='password']").val(),
+						code:$("input[name='identify_code']").val()
+					}),
+					dataType: 'json',
+					success: function (data) {
+						if(data.success){
+							$('.email_show').html($("input[name='email']").val());
+							regist.step(2);
+							var loginEmail=new LoginEmail($("input[name='email']").val());
+						}else{
+							var errorEl=$('<label class="error ta_c" style="display:block;">'+data.message+'</label>');
+							errorEl.insertAfter('.agreement');
+							$('.regist_step_1_form').one('input propertychange',$('.regist_step_1_form').find('.regist_input'),function(){
+								errorEl.remove();
+							})
+						}
+					}
+				})
+			}
+		});
+		/*注册步骤2验证*/
+		$('.regist_step_2_form_submit').click(function(){
+			$('.regist_step_2_form').submit();
+		})
+		/*时间插件*/
+		$('#date').datepicker();
+		$('.regist_step_2_form').validate({
+			rules:{
+				name:{
+					required:true
+				},
+				registerNo:{
+					required:true,
+					number:true
+				},
+				orgCode:{
+					required:true,
+					number:true
+				},
+				legalAddress:{
+					required:true
+				},
+				legalName:{
+					required:true
+				},
+				legalIdentityNo:{
+					required:true,
+					isIDcard:true
+				},
+				legalIdentityValidity:{
+					required:true
+				}
+			},
+			messages:{
+				name:{
+					required:'请输入企业名称'
+				},
+				registerNo:{
+					required:'请输入注册号',
+					number:'注册码格式错误'
+				},
+				orgCode:{
+					required:'请输入组织机构代码',
+					number:'组织机构代码格式错误'
+				},
+				legalAddress:{
+					required:'请输入法定代表人归属地'
+				},
+				legalName:{
+					required:'请输入法定代表人姓名'
+				},
+				legalIdentityNo:{
+					required:'请输入身份证号'
+				},
+				legalIdentityValidity:{
+					required:'请输入证件有效期'
+				}
+			},
+			errorPlacement:function(error,element){
+				element.parent().append(error)
+			},
+			highlight:function(element){
+				$(element).addClass('error')
+			},
+			submitHandler:function(){
+				$.ajax({
+					url: globalConifg.baseUrl + globalConifg.api.update,
+					type: 'post',
+					contentType: "application/json",
+					data:JSON.stringify({
+						name:$("input[name='name']").val(),
+						registerNo:$("input[name='registerNo']").val(),
+						orgCode:$("input[name='orgCode']").val(),
+						legalAddress:$("input[name='legalAddress']").val(),
+						legalName:$("input[name='legalName']").val(),
+						legalIdentityNo:$("input[name='legalIdentityNo']").val(),
+						legalIdentityValidity:$("input[name='legalIdentityValidity']").val()
+					}),
+					dataType: 'json',
+					success: function (data) {
+						if(data.success){
+							picUpload();
+						}else{
+							var errorEl=$('<label class="error ta_c" style="display:block;">'+data.message+'</label>');
+							errorEl.insertBefore($('.regist_step_2_form_submit'));
+							$('.regist_step_2_form').one('input propertychange',$('.regist_step_2_form').find('.regist_input'),function(){
+								errorEl.remove();
+							})
+						}
+					}
+				})
+			}
+		});
+		function picUpload(){
+			$('.regist_step_2_form_pic').validate({
+				rules:{
+					pic_regist_code:{
+						required:true
+					},
+					pic_organization_code_1:{
+						required:true
+					},
+					pic_organization_code_2:{
+						required:true
+					},
+					pic_identify_card_1:{
+						required:true
+					},
+					pic_identify_card_2:{
+						required:true
+					},
+					pic_logo:{
+						required:true
+					}
+				},
+				messages:{
+					pic_regist_code:{
+						required:'请上传企业法人营业执照'
+					},
+					pic_organization_code_1:{
+						required:'请上传组织机构代码证(正)'
+					},
+					pic_organization_code_2:{
+						required:'请上传组织机构代码证(反)'
+					},
+					pic_identify_card_1:{
+						required:'请上传法定代表人身份证(正)'
+					},
+					pic_identify_card_2:{
+						required:'请上传法定代表人身份证(反)'
+					},
+					pic_logo:{
+						required:'请上传LOGO图'
+					}
+				},
+				errorPlacement:function(error,element){
+					element.parent().append(error)
+				},
+				highlight:function(element){
+					$(element).addClass('error')
+				}
+			})
+			$('.regist_step_2_form_pic').submit();
+		}
+
+		$('.resend_email_button').click(function(){
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.resendEmail,
+				type: 'get',
+				data:{
+					email:$('input[name="email"]').val()
+				},
+				dataType: 'json',
+				success: function (data) {
+					if(data.success){
+						alert('发送成功')
+					}
+				}
+			})
+		})
+
+	})
+	
+</script>

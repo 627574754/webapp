@@ -1,0 +1,25 @@
+#content{
+	background:#f8f8f8;
+}
+h1{
+	color:#333;
+	font-size:28px;
+	line-height:150px;
+}
+h2{
+	color:#0ca6f0;
+	font-size:16px;
+	line-height:2;
+}
+h3{
+	color:#666;
+	font-size:14px;
+
+}
+.faq_list{
+	padding-bottom:95px;
+}
+.faq_list li{
+	border-bottom:1px dashed #dedede;
+	padding:25px 0;
+}

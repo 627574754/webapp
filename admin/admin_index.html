@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>后台审核</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+	<div class='admin'>
+		<div class='left'>
+			<p>账户审核</p>
+		</div>
+		<div class='right'>
+			<div class='right_cont'>
+				<table class='result_table'>
+					<thead>
+						<tr>
+							<th>用户名</th>
+							<th>企业名称</th>
+							<th>注册号</th>
+							<th>组织机构代码</th>
+							<th>法定人归属地</th>
+							<th>法定人姓名</th>
+							<th>身份证号</th>
+							<th>证件有效期</th>
+							<th>企业法人营业执照</th>
+							<th>组织机构代码证</th>
+							<th>企业LOGO</th>
+							<th>法定代表人身份证照片</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			<div>
+		</div>
+	</div>
+</body>
+<script src='../js/jquery.min.js'></script>
+<script>
+	$(function(){
+		var tableData={};
+		$.ajax({
+			url:'/dola/admin/getUserList',
+			type:'get',
+			dataType:'json',
+			async:false,
+			success:function(data){
+				if(data.success){
+					tableData=data.data;
+				}
+			}
+		});
+		Date.prototype.Format = function (fmt) { //author: meizz
+			var o = {
+				"M+": this.getMonth() + 1, //月份
+				"d+": this.getDate(), //日
+				"h+": this.getHours(), //小时
+				"m+": this.getMinutes(), //分
+				"s+": this.getSeconds(), //秒
+				"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+				"S": this.getMilliseconds() //毫秒
+			};
+			if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+			for (var k in o)
+				if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			return fmt;
+		}
+		var str = '';
+		for (var i = 0; i < tableData.length; i++) {
+			var orgCode=['',''];
+			var passPort=['',''];
+			var status='';
+			if(tableData[i].orgCodeCertificate){
+				orgCode[0]=tableData[i].orgCodeCertificate.split(";")[0];
+				orgCode[1]=tableData[i].orgCodeCertificate.split(";")[1];
+			}
+			if(tableData[i].lagalPassportUrl){
+				passPort[0]=tableData[i].lagalPassportUrl.split(";")[0];
+				passPort[1]=tableData[i].lagalPassportUrl.split(";")[1];
+			}
+			if(tableData[i].status==0){
+				status="<p>邮箱待激活</p>"
+			}else if(tableData[i].status==1){
+				status="<p><a class='success'>审核通过</a></p><p><a class='fail'>审核不通过</a></p>"
+			}else if(tableData[i].status==2){
+				status="<p>审核已通过</p>"
+			}else if(tableData[i].status==3){
+				status="<p>审核未通过</p>"
+			}
+			str += "<tr>" +
+					"<td class='email'>" + tableData[i].email + "</td>" +
+					"<td>" + tableData[i].name + "</td>" +
+					"<td>" + tableData[i].registerNo + "</td>" +
+					"<td>" + tableData[i].orgCode + "</td>" +
+					"<td>" + tableData[i].legalAddress + "</td>" +
+					"<td>" + tableData[i].legalName + "</td>" +
+					"<td>" + tableData[i].legalIdentityNo + "</td>" +
+					"<td>" + new Date(tableData[i].legalIdentityValidity).Format("yyyy-MM-dd") + "</td>" +
+					"<td>" + 
+						"<img src='http://duolaqiao.com/dola"+tableData[i].businessLicenseUrl+"'>"+
+						 "<a class='show_pic'>显示图片</a>"+
+					"</td>"+
+					"<td>" + 
+						"<img src='http://duolaqiao.com/dola"+orgCode[0]+"'>"+
+						"<img src='http://duolaqiao.com/dola"+orgCode[1]+"'>"+
+						"<a class='show_pic'>显示图片</a>"+
+					"</td>"+
+					"<td>" + 
+						"<img src='http://duolaqiao.com/dola"+tableData[i].logoUrl+"'>"+
+						"<a class='show_pic'>显示图片</a>"+
+					"</td>"+
+					"<td>" + 
+						"<img src='http://duolaqiao.com/dola"+passPort[0]+"'>"+
+						"<img src='http://duolaqiao.com/dola"+passPort[1]+"'>"+
+						"<a class='show_pic'>显示图片</a>"+
+					"</td>"+
+					"<td>"+status+"</td>" +
+					"</tr>"
+		}
+		$('.result_table').find('tbody').html(str);
+		$('.success').click(function(){
+			$.ajax({
+				url:'/dola/admin/checkUser',
+				type:'get',
+				dataType:'json',
+				data:{
+					'email':$(this).parents('tr').find('.email').html(),
+					's':2
+				},
+				success:function(data){
+					if(data.success){
+						alert('操作成功');
+						window.location.reload();
+					}
+				}
+			});
+		})
+		$('.fail').click(function(){
+			$.ajax({
+				url:'/dola/admin/checkUser',
+				type:'get',
+				dataType:'json',
+				data:{
+					'email':$(this).parents('tr').find('.email').html(),
+					's':3
+				},
+				success:function(data){
+					if(data.success){
+						alert('操作成功')
+						window.location.reload();
+					}
+				}
+			});
+		})
+		$('.show_pic').click(function(){
+			if($(this).parent().find('img').eq(0).is(':visible')){
+				$(this).parent().find('img').hide();
+				$(this).html('显示图片')
+			}else{
+				$(this).parent().find('img').show();
+				$(this).html('隐藏图片')
+			}
+		})
+	})
+</script>
+</html>

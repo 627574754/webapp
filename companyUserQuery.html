@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>安全桥-客户信息查询</title>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/pagenation.css" />
+	<link rel="stylesheet" type="text/css" href="css/companyUser.css" />
+</head>
+<body>
+<script type='text/template' id='pagetemplate'>
+	<%=banner%>
+	<div id='content' class='global_min_width'>
+		<div class='inner clearfix'>
+			<div class='left_panel'>
+				<p class='welcome'>早上好，<%=data.name%>公司</p>
+				<ul class='left_menu'>
+					<li>
+						<span class='option_icon_bg'>
+							<em class='option_icon_my_account'></em>
+						</span>
+						<span class='option_font'>我的账户</span>
+						<span class='arr_icon'></span>
+						<ul class='left_menu_level2'>
+							<li><span class='level2_icon'></span><a href="companyUserOverview.html">账户总览</a></li>
+							<li><span class='level2_icon'></span ><a href="companyUserSetting.html">账户基本信息</a></li>
+						</ul>
+					</li>
+					<li>
+						<span class='option_icon_bg'>
+							<em class='option_icon_customer_admin'></em>
+						</span>
+						<span class='option_font'>客户管理</span>
+						<span class='arr_icon'></span>
+						<ul class='left_menu_level2'>
+							<li><span class='level2_icon'></span><a href="companyUserQuery.html">客户信息查询</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class='right_panel'>
+				<p class='current_page_position'>
+					<span class='current_page_position_icon'></span>
+					<a class='current_page_position_level1'>客户管理</a>
+					<span class='relation_symbol'>&gt;</span>
+					<a class='current_page_position_level2'>客户信息查询</a>
+				</p>
+				<p class='latest_login'>上次登录时间：<%=data.lastLogin%></p>
+				<div class='query_wraper'>
+					<p class='query_option_row'>
+						<label>客户操作时间：</label>
+						<span class='query_option'>
+							<a class='checked'>不限</a>
+							<a>昨天</a>
+							<a>今天</a>
+							<a>最近一周</a>
+							<a>最近一月</a>
+							<input type='text' class='time_select' placeholder='起始时间'/>
+							<span class='relation_line'></span>
+							<input type='text' class='time_select' placeholder='结束时间'/>
+						</span>
+					</p>
+					<p class='query_option_row'>
+						<label>客户操作结果：</label>
+						<span class='query_option'>
+							<a class='checked'>不限</a>
+							<a>尝试未成功</a>
+							<a>尝试成功</a>
+						</span>
+					</p>
+					<p class='query_option_row'>
+						<label>报告状态&emsp;&emsp;：</label>
+						<span class='query_option'>
+							<a class='checked'>不限</a>
+							<a>合格</a>
+							<a>不合格</a>
+						</span>
+					</p>
+				</div>
+				<div class='result_wraper'>
+					<table class='result_table'>
+						<caption class='result_wraper_title'>客户信息列表</caption>
+						<thead>
+							<tr>
+								<th>客户姓名</th>
+								<th>身份证号</th>
+								<th>所属银行</th>
+								<th>操作状态</th>
+								<th>客户查询时间</th>
+								<th>报告状态</th>
+								<th width='140'>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="pagecontainer">
+					<div class='pagination'></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%=footer%>
+</script>
+</body>
+<script src='js/jquery.min.js'></script>
+<script src='js/underscore.js'></script>
+<script src='js/placeholder.min.js'></script>
+<script src='js/pagenation.js'></script>
+<script type="text/javascript" src="js/jquery-ui-datepicker.js"></script>
+<script src='js/common.js'></script>
+<script>
+	//解析页面模板
+	var pageExdentsD={page:{data:{data:{}}}};
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.getUserInfoDetail,
+		type:'post',
+		dataType:'json',
+		async:false,
+		success:function(data){
+			if(data.success) {
+				pageExdentsD.page.data.data=data.data;
+			}
+		}
+	});
+	$.ajax({
+		url:globalConifg.baseUrl+globalConifg.api.getLastLoginInfo,
+		type:'post',
+		dataType:'json',
+		async:false,
+		success:function(data){
+			if(data.success) {
+				pageExdentsD.page.data.data.lastLogin=data.data;
+			}
+		}
+	});
+	Date.prototype.Format = function (fmt) { //author: meizz
+		var o = {
+			"M+": this.getMonth() + 1, //月份
+			"d+": this.getDate(), //日
+			"h+": this.getHours(), //小时
+			"m+": this.getMinutes(), //分
+			"s+": this.getSeconds(), //秒
+			"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+			"S": this.getMilliseconds() //毫秒
+		};
+		if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o)
+			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		return fmt;
+	}
+	if(pageExdentsD.page.data.data.lastLogin==0) {
+		pageExdentsD.page.data.data.lastLogin = new Date().Format("yyyy-MM-dd hh:mm:ss");
+	}
+	var pageMVC=new PageMVC();
+	pageMVC.extendsData(pageExdentsD);
+	pageMVC.temp();
+	$(function(){
+		var leftMenu=new LeftMenu([1,0]);
+		function CompanyUserQuery(){
+			this.data={
+				pageSize:10,
+				nowPage:1
+			};
+			this.totalPage=1;
+			this.events();
+			this.init();
+		}
+		CompanyUserQuery.prototype={
+			events:function() {
+				var that=this;
+				var date=new Date();
+				var dateToday=[date.Format("yyyy-MM-dd")+" 00:00:00",date.Format("yyyy-MM-dd")+" 23:59:59"];
+				var dateYesterday=[new Date(date.getTime()-24*3600*1000).Format("yyyy-MM-dd")+" 00:00:00",new Date(date.getTime()-24*3600*1000).Format("yyyy-MM-dd")+" 23:59:59"]
+				var dateWeekBefore=[new Date(date.getTime()-7*24*3600*1000).Format("yyyy-MM-dd")+" 00:00:00",date.Format("yyyy-MM-dd")+" 23:59:59"];
+				var dateMonthBefore=[new Date(date.getTime()-30*24*3600*1000).Format("yyyy-MM-dd")+" 00:00:00",date.Format("yyyy-MM-dd")+" 23:59:59"];
+				$('.query_option').eq(0).find('a').each(function (index) {
+					$(this).click(function (){
+						$(this).addClass('checked').siblings().removeClass('checked');
+						if(index==0){
+							delete that.data.startTime;
+							delete that.data.endTime;
+						}
+						else if (index == 1) {
+							that.data.startTime =dateYesterday[0];
+							that.data.endTime = dateYesterday[1];
+						} else if (index == 2) {
+							that.data.startTime = dateToday[0]
+							that.data.endTime = dateToday[1]
+						} else if (index == 3) {
+							that.data.startTime = dateWeekBefore[0]
+							that.data.endTime =  dateWeekBefore[1]
+						} else if (index == 4) {
+							that.data.startTime = dateMonthBefore[0]
+							that.data.endTime = dateMonthBefore[1]
+						}
+						that.loadData(true)
+					})
+				})
+				$('.query_option').eq(1).find('a').each(function (index) {
+					$(this).click(function () {
+						$(this).addClass('checked').siblings().removeClass('checked');
+						if (index == 0) {
+							delete that.data.operStatus;
+						} else if (index == 1) {
+							that.data.operStatus =1
+						} else if (index == 2) {
+							that.data.operStatus = 0;
+						}
+						that.loadData(true)
+					})
+				})
+				$('.query_option').eq(2).find('a').each(function (index) {
+					$(this).click(function () {
+						$(this).addClass('checked').siblings().removeClass('checked');
+						if (index == 0) {
+							delete that.data.reportStatus;
+						} else if (index == 1) {
+							that.data.reportStatus = 1;
+						} else if (index == 2) {
+							that.data.reportStatus = 0;
+						}
+						that.loadData(true)
+					})
+				})
+			},
+			loadData:function(first){
+				var that=this;
+				$.ajax({
+					url: globalConifg.baseUrl + globalConifg.api.getCustomerInfoList,
+					type: 'post',
+					contentType: "application/json",
+					dataType: 'json',
+					data:JSON.stringify(this.data),
+					async:first?false:true,
+					success: function (data) {
+						if(data.success) {
+							var str = '';
+							for (var i = 0; i < data.data.length; i++) {
+								data.data[i].operStatus=(data.data[i].operStatus==1?"<sapn class='fail'>尝试未成功</span>":"<sapn class='success'>尝试成功</span>");
+								data.data[i].reportStatus=(data.data[i].reportStatus==0?"<sapn class='fail'>不合格</span>":"<sapn class='success'>合格</span>");
+								data.data[i].modifyTime=new Date(data.data[i].modifyTime).Format("yyyy-MM-dd");
+								str += "<tr>" +
+										"<td>" + data.data[i].userName + "</td>" +
+										"<td>" + data.data[i].userNo + "</td>" +
+										"<td>" + data.data[i].bank + "</td>" +
+										"<td>" + data.data[i].operStatus + "</td>" +
+										"<td>" + data.data[i].modifyTime + "</td>" +
+										"<td>" + data.data[i].reportStatus + "</td>" +
+										"<td><a class='preview' target='_blank' href='report.html?id="+ data.data[i].id +"'>预览</a> <a class='download' href='customer/exportReport?cid=" + data.data[i].id + "'>下载</a></td>" +
+										"</tr>"
+							}
+							$('.result_table').find('tbody').html(str);
+							if(first){
+								that.totalPage=data.total;
+								$('.pagination').pagination(that.totalPage,{
+									prev_text:'前一页',
+									next_text:'后一页',
+									callback:function(e){
+										that.data.nowPage=e+1;
+										that.loadData();
+									}
+								})
+							}
+						}
+
+					}
+				});
+			},
+			init:function(){
+				this.loadData(true);
+			}
+		};
+		var companyUserQuery=new CompanyUserQuery();
+	})
+</script>

@@ -1,0 +1,320 @@
+@charset 'utf-8';
+#content{
+	background:url(../images/main_bg.jpg) top center repeat-x;
+	height:1170px;
+}
+/*content1*/
+.content1{
+	height:890px;
+	overflow:hidden;
+}
+/*box*/
+.main_box{
+	margin:80px auto auto auto;
+	width:700px;
+	padding:0 20px;
+}
+.main_box_title{
+	color:#fff;
+	font-size:20px;
+	margin-bottom:10px;
+}
+.main_box_title em{
+	font-size:14px;
+	color:#999;
+}
+.main_box_content{
+	width:600px;
+	min-height:500px;
+	filter:Alpha(opacity=85);
+	background:rgb(255,255,255);
+	background:rgba(255,255,255,0.85);/*透明兼容IE8，勿改动顺序*/
+	position:relative;
+	padding:150px 50px 0 50px;
+}
+.main_box_tip{
+	position:absolute;
+	width:740px;
+	height:85px;
+	top:30px;
+	left:-20px;
+	filter:Alpha(opacity=85);
+	background:rgb(132,172,0);
+	background:rgba(132,172,0,0.8);
+}
+.triangle_left{
+	position:absolute;
+	top:85px;
+	left:0;
+	width:0;
+	height:0;
+    border-top: 25px solid #567000;
+    border-left: 20px solid transparent;
+}
+.triangle_right{
+	position:absolute;
+	top:85px;
+	right:0;
+	width:0;
+	height:0;
+    border-top: 25px solid #567000;
+    border-right: 20px solid transparent;
+}
+.main_box_tip p{
+	color:#fff;
+	font-size:14px;
+	width:580px;
+	margin:10px 70px;
+	line-height:1.8;
+}
+/*content2*/
+.content2{
+	height:280px;
+	background:#237fdb;
+}
+.main_box_content .row{
+	min-height:40px;
+	margin-bottom:30px;
+	position:relative;
+}
+
+
+.row_left{
+	line-height:40px;
+	font-size:16px;
+	float:left;
+	width:90px;
+}
+.row_right{
+	width:500px;
+	float:left;
+	
+}
+.imitate_select{
+	width:495px;
+	height:100%;
+	border:1px solid #c4c4c4;
+	background:#fff;
+	height:40px;
+	line-height:40px;
+	font-size:13px;
+	font-weight:100;
+	padding-left:5px;
+}
+.text_input{
+	width:494px;
+	height:38px;
+	border:1px solid #c4c4c4;
+	vertical-align:middle;
+	padding-left:5px;
+}
+.bank_list_box{
+	position:absolute;
+	width:464px;
+	border:1px solid #ccc;
+	background:#fff;
+	left:90px;
+	top:40px;
+	z-index:2;
+	padding:18px 18px 6px 18px;
+}
+.bank_list{
+	width:500px;
+}
+.bank_list_box{
+	margin-bottom:0px;
+}
+.bank_list_box li{
+	width:146px;
+	border:1px solid #ddd;
+	float:left;
+	margin-right:10px;
+	margin-bottom:12px;
+	cursor:pointer;
+}
+.bank_list_box li:hover{
+	border:1px solid #fab27b;
+}
+.chl-icon{
+	background-repeat:no-repeat;
+	width:126px;
+	height:30px;
+	display:inline-block;
+}
+.icon{
+	display:inline-block;
+	height:25px;
+	background:url(../images/icons.png) no-repeat;
+	vertical-align:bottom;
+}
+.title_icon{
+	background-position:0 -58px;
+	width:17px;
+	margin:0 10px;
+}
+.bank_list_more i{
+	background:url(../images/icons.png) no-repeat;
+	background-position:30px -85px;
+	width:50px;
+	height:30px;
+}
+.bank_list_more span{
+	display:inline-block;
+	vertical-align:top;
+	font-style:normal;
+	line-height:34px;
+	font-weight:bolder;
+	font-size:14px;
+	color:#666;
+}
+.imitate_select_icon{
+    background-position: -80px -62px;
+    float: right;
+    margin-top: 15px;
+    width: 17px;
+	margin-right:5px;
+}
+.imitate_select .chl-icon{
+	border:1px solid #fab27b;
+	margin-top:4px;
+	width:146px;
+}
+.query_pwd{
+	position:relative;
+}
+.query_pwd_icon{
+    background-position: -35px -58px;
+    position: absolute;
+    right: 7px;
+    top: 10px;
+    width: 18px;
+	cursor:pointer;
+}
+.query_pwd_box{
+	position:absolute;
+	width:370px;
+	height:180px;
+	right:8px;
+	top:41px;
+	background:#d2e7f1;
+	border:1px solid #41b5ed;
+	padding-left:25px;
+	z-index:2;
+}
+.query_pwd_box dl{
+	margin-top:5px;
+}
+.query_pwd_box dt{
+	display:list-item;
+	list-style:square;
+	color:#0ca6f0;
+}
+.query_pwd_box dd{
+	color:#666;
+}
+.identify_code{
+	width:288px;
+}
+.identify_code_img{
+	width:94px;
+	height:40px;
+	border:1px solid #c4c4c4;
+	vertical-align:middle;
+}
+.change_identiy_code{
+	text-decoration:underline;
+}
+.checkbox.agreement{
+	margin-left: 90px;
+	
+}
+.submit{
+	width:590px;
+	height:55px;
+	background:#0ca6f0;
+	color:#fff;
+	font-size:20px;
+}
+.submit:hover,.submit:focus{
+	color:#fff;
+}
+.query_count{
+	font-size:16px;
+	text-align:center;
+}
+.i_box{
+	float:left;
+	width:33%;
+	height:100%;
+}
+.i_box dl{
+	display:inline-block;
+	width:165px;
+	height:100%;
+}
+.i_box p{
+	background:url(../images/icons.png) no-repeat;
+	margin:45px 45px 25px 45px;
+	width:75px;
+	height:75px;
+}
+.i_box h2{
+	color:#fff;
+	font-size:20px;
+	text-align:center;
+}
+.i_box dd{
+	font-size:14px;
+	color:#b0deff;
+	margin-top:20px;
+	text-align:left;
+}
+.i_box_1 p{
+	background-position:-177px -125px;
+}
+.i_box_2 p{
+	background-position:-90px -125px;
+}
+.i_box_3 p{
+	background-position:0px -125px;
+}
+.icon_success{
+	background-position: -125px 0;
+    height: 40px;
+    width: 40px;
+	margin-right:10px;
+}
+.icon_fail{
+	background-position: -175px 0;
+    height: 40px;
+    width: 40px;
+	margin-right:10px;
+}
+.bank_list_hide{
+	display:none;
+}
+/*统一模拟输入框placeholder和正常placeholder字体一致，避免隐藏内容被选中*/
+.imitate_select_content{
+	position:relative;
+}
+.unselect_cover{
+	position:absolute;
+	display:inline-block;
+	width:500px;
+	height:40px;
+	opacity:0;
+	filter:Alpha(opacity=0);
+}
+.error_container{
+	background: #fde5e5 none repeat scroll 0 0;
+	border: 1px solid #e96d6d;
+	color: #e96d6d;
+	height: 28px;
+	left: 140px;
+	line-height: 28px;
+	position: absolute;
+	top: 192px;
+	width: 500px;
+	text-indent:2em;
+	display:none;
+}
