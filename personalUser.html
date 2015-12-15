@@ -216,23 +216,23 @@
 			安全认证<i class="conform-close"></i>
 		</div>
 		<div class="query_tips">为保证您的账户安全，现在对你使用当前设备登录进行安全认证。</div>
-		<form class="conform-form">
+		<form class="conform-form cfmForm">
 			<div class='row'>
 				<div class='cf-label'>安全认证手机：</div>
 				<div class='cf-cnt'>
-					<input type='text' class='ipt' name="">
+					<input type='text' id="phone" disabled="disabled" class='ipt' name="phone">
 				</div>
 			</div>
 			<div class='row'>
 				<div class='cf-label'>短信验证码：</div>
 				<div class='cf-cnt'>
-					<input type='text' class='ipt' name="">
+					<input type='text' class='ipt' name="phoneCode">
 				</div>
 			</div>
-			<div class='row'>
+			<div class='row codeWrap'>
 				<div class='cf-label'>验证码：</div>
 				<div class='cf-cnt'>
-					<input type='text' class='ipt ipt1' name="">
+					<input type='text' class='ipt ipt1' name="code">
 					<div class="code-img"><img src=""></div>
 				</div>
 			</div>
@@ -858,17 +858,103 @@ $(function(){
 				beforeSend:function(){
 					progressCircle=new ProgressCircle();
 				},
-				success: function (data) {
-					
-					// if(data.success){
-					// 	progressCircle.goEnd(function(){
-					// 		var messageBox=new MessageBox('报告已成功发送给“'+pageExdentsD.page.data.data.name +'”！','请等待'+pageExdentsD.page.data.data.name +'审核',"确定",1)
-					// 	})
-					// }else{
-					// 	progressCircle.goEnd(function(){
-					// 		var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
-					// 	})
-					// }
+				success: function (repose) {
+					if(!repose.success){
+						progressCircle.goEnd(function(){
+							var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
+						})
+						return;
+					}
+					var data = repose.data;
+					if(data && (data.s == '2' || data.s == '3')) {
+						$('#conformDialog').removeClass('none');
+						$('.layer').show();
+						initBindPhone(data);
+						return;
+					}			
+					progressCircle.goEnd(function(){
+						var messageBox=new MessageBox('报告已发送“宜人贷”请等待审核',"确定",1)
+					})
+				}
+			})
+		}
+	});
+	//手机验证码绑定
+	function initBindPhone(data) {
+		$('#phone').val(data.phone);
+		var codeWrap = $('#codeWrap');
+		$('#process').removeClass('sus').attr('style','');
+		if(data.code) {
+			codeWrap.removeClass('none');
+			codeWrap.find('img').attr('src', data.code);
+			$('.stsMsg .tips').html('正在获取报告');
+			$('.stsTip').html('可能需要2分钟');
+		}
+		else {
+			codeWrap.addClass('none');
+		}
+	}
+	//手机绑定
+	var cfmForm = $('.cfmForm');
+	cfmForm.validate({
+		ignore: [],
+		rules: {
+			phoneCode: {
+				required: true
+			}
+		},
+		showErrors:function(e){
+			if(JSON.stringify(e)!=="{}") {
+				cfmForm.find('.error_container').show();
+				cfmForm.one('input propertychange change', $('.text_input'), function () {
+					cfmForm.find('.error_container').fadeOut();
+				})
+			}
+		},
+		onkeyup:false,
+		onfocusout:false,
+		errorPlacement: function (error, element) {
+		},
+		highlight: function (element) {
+			$(element).addClass('error')
+		},
+		submitHandler: function () {
+
+			var postD = {
+				domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
+				bank: cfmForm.find("input[name='bank']").val(),
+				name: cfmForm.find("input[name='name']").val(),
+				extra:cfmForm.find("input[name='extra']").val().replace(/\s/g,''),
+				code: cfmForm.find("input[name='code']").val(),
+				sid:identifyCode.sid
+			};
+			var progressCircle=null;
+			$.ajax({
+				url: globalConifg.baseUrl + globalConifg.api.customerQuery,
+				type: 'post',
+				contentType: "application/json",
+				data:JSON.stringify(postD),
+				dataType: 'json',
+				beforeSend:function(){
+					progressCircle=new ProgressCircle();
+				},
+				success: function (repose) {
+					if(!repose.success){
+						progressCircle.goEnd(function(){
+							var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
+						})
+						return;
+					}
+					var data = repose.data;
+					if(data && (data.s == '2' || data.s == '3')) {
+						$('#conformDialog').removeClass('none');
+						$('.layer').show();
+						initBindPhone(data);
+						return;
+					}			
+					progressCircle.goEnd(function(){
+						var messageBox=new MessageBox('报告已发送“宜人贷”请等待审核',"确定",1)
+					})
 				}
 			})
 		}
