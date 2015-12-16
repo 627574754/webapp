@@ -1,6 +1,6 @@
 //所有接口及baseUrl
 var globalConifg={
-	baseUrl:'http://localhost:8888/other/webapp/webapp/',
+	baseUrl:'http://localhost:8888/other/webapp/',
 	//baseUrl:'http://localhost/dola/',
 	api:{
 		register:{

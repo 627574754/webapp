@@ -9,12 +9,42 @@
 </head>
 <body>
 <script type='text/template' id='pagetemplate'>
-	<div class="layer">
+	<div class="layer" style="display:none;">
 	</div>
-	<%=banner%>
+	<div id='banner' class='global_min_width'>	
+		<div class='nav'>
+			<div class='inner clearfix'>
+				<div class='login_n_regist'>
+					<a class='login_btn'>登录</a><span class='break_symbol'>|</span><a href='http://duolaqiao.com/dola/regist.html'>注册用户</a>
+				</div>
+				<div class='nav_extra'>
+					<span>客服热线：<strong class='orange'>800-820-8820</strong></span><span class='break_symbol'>|</span>
+					<span>电话：<strong class='orange'>023-68939718</strong></span><span class='break_symbol'>|</span>
+					<span>QQ号：<strong class='orange'>2833808786</strong></span><span class='break_symbol'>|</span>
+					<span>微博：<strong class='orange'>http://weibo.com/anquanqiao</strong></span><span class='break_symbol'>|</span>
+					<span class='third_party_opts'>
+						<a class='third_party_opts_qq' href='###'></a>
+						<a class='third_party_opts_sina' href='###'></a>
+						<a class='third_party_opts_weixin' href='###'></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class='nav2'>
+			<div class='inner clearfix'>
+				
+				<div class='logo'>
+					<img src="images/personal-logo.png">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<div id='content' class='global_min_width clearfix'>
 		<div class='content1 inner'>
-			<form class="slt_form stepWrap" style="display:none;">
+			<form class="slt_form stepWrap">
 				<div class='main_box'>
 					<div class='main_box_tip'>
 						请选择你要查询的银行
@@ -39,24 +69,24 @@
 						</div>
 						
 						<div class="error_container">
-							*&emsp;输入信息不全或输入银行卡、手机号、用户名错误
+							*&emsp;请选择您要查询的银行
 						</div>
 					</div>
 
 				</div>
 			</form>
-			<div class="stepWrap">
+			<div class="stepWrap" style="display:none;">
 				<div class="main_box">
 					<div class="tab-wrap">
 						<div class="tab cur tabItem">卡号</div>
 						<div class="tab tabItem">一网通用户</div>
 					</div>
 					<div class="query_tips">为保证您的账户资金安全，请确保您的查询密码和交易密码不通。本网站服务只使用查询密码，完成本次查询后，建议修改查询密码。</div>
-					<form class="main_box_content cardForm tabCnt">
+					<form class="main_box_content tabCnt" id="cardForm">
 						<div class='row clearfix'>
 							<div class='row_left'>银行：</div>
 							<div class='row_right'>
-								<div class="slted-bank"><i class="chl-icon ICBC icon-cashier-ICBC" title="中国工商银行" data-id="ICBC"></i></div><a class="link-black" id="rechoseBank" data-pg="0">重新选择</a>
+								<div class="slted-bank"></div><a class="link-black rechoseBank" data-pg="0">重新选择</a>
 							</div>
 						</div>
 						<div class='row clearfix query_method_default'>
@@ -102,17 +132,17 @@
 							<button class='btn submit'>确认授权并开始查询银行流水单</button>
 						</div>
 						<div class="error_container">
-							*&emsp;输入信息不全或输入银行卡、手机号、用户名错误
+							*&emsp;输入信息不全或输入银行卡号、查询密码、验证码错误
 						</div>
 						<div class='row clearfix query_count'>
 							很荣幸，我们已经为 <span class='orange'>36452</span> 个用户提供了查询服务，账户损失为 <span class='orange'>0</span>  元。
 						</div>
 					</form>
-					<form class="main_box_content ywtForm tabCnt none">
+					<form class="main_box_content tabCnt none" id="ywtForm">
 						<div class='row clearfix'>
 							<div class='row_left'>银行：</div>
 							<div class='row_right'>
-								<div class="slted-bank"><i class="chl-icon ICBC icon-cashier-ICBC" title="中国工商银行" data-id="ICBC"></i></div><a class="link-black" id="rechoseBank" data-pg="0">重新选择</a>
+								<div class="slted-bank"></div><a class="link-black rechoseBank" data-pg="0">重新选择</a>
 							</div>
 						</div>
 						<div class='row clearfix query_method_default'>
@@ -164,7 +194,7 @@
 							<button class='btn submit'>确认授权并开始查询银行流水单</button>
 						</div>
 						<div class="error_container">
-							*&emsp;输入信息不全或输入银行卡、手机号、用户名错误
+							*&emsp;输入信息不全或输入登录名、查询密码、卡号后四位、验证码错误
 						</div>
 						<div class='row clearfix query_count'>
 							很荣幸，我们已经为 <span class='orange'>36452</span> 个用户提供了查询服务，账户损失为 <span class='orange'>0</span>  元。
@@ -173,50 +203,13 @@
 				</div>
 			</div>
 		</div>
-		<div class='content2'>
-			<div class='inner'>
-				<div class='i_box i_box_1 ta_l'>
-					<dl>
-						<dt>
-							<p class='i_box_img'></p>
-							<h2>资金安全</h2>
-						</dt>
-						<dd>
-							平安保险全额承促使，闪电赔偿。
-						</dd>
-					</dl>
-				</div>
-				<div class='i_box i_box_2 ta_c'>
-					<dl>
-						<dt>
-							<p class='i_box_img'></p>
-							<h2>个人信息安全</h2>
-						</dt>
-						<dd>
-							采用多重加密，不记录个人信息，查询的流水立即删除。
-						</dd>
-					</dl>
-				</div>
-				<div class='i_box i_box_3 ta_r'>
-					<dl>
-						<dt>
-							<p class='i_box_img'></p>
-							<h2>安全认证</h2>
-						</dt>
-						<dd>
-							通过CFCA国家权威安全检测。
-						</dd>
-					</dl>
-				</div>
-			</div>
-		</div>
 	</div>
-	<div class="msg-conform-dialog" id="conformDialog">
+	<div class="msg-conform-dialog none" id="conformDialog">
 		<div class="conform-title">
 			安全认证<i class="conform-close"></i>
 		</div>
 		<div class="query_tips">为保证您的账户安全，现在对你使用当前设备登录进行安全认证。</div>
-		<form class="conform-form cfmForm">
+		<form class="conform-form" id="cfmForm">
 			<div class='row'>
 				<div class='cf-label'>安全认证手机：</div>
 				<div class='cf-cnt'>
@@ -235,6 +228,9 @@
 					<input type='text' class='ipt ipt1' name="code">
 					<div class="code-img"><img src=""></div>
 				</div>
+			</div>
+			<div class="error_container">
+				*&emsp;输入信息不全或输入短信验证、验证码错误
 			</div>
 			<button class='conform-btn submit'>提交验证</button>
 		</form>
@@ -287,29 +283,32 @@ $(function(){
 		events:function(){
 			var that=this;
 			$('.change_identiy_code').click(function(){
-				//$('.identify_code_img').attr('src',$('.identify_code_img').attr('src')+'?'+new Date().getTime());
-				that.getBankIdentifyCode($(this).data('bank'));
+				that.getBankIdentifyCode($(this).data('bank'),'',$('.change_identiy_code').index($(this)));
 			})
 		},
-		getBankIdentifyCode:function(bank){
+		getBankIdentifyCode:function(bank,bankStr,n){
+			var n = n || 0;
 			var that=this;
-			$.ajax({
-				url:globalConifg.baseUrl+globalConifg.api.getBankCode,
-				type:'get',
-				dataType:'json',
-				data:{
-					'bank':bank
-				},
-				async:false,
-				success:function(data){
-					if(data.success) {
-						$('.identify_code_row').show();
-						$('.identify_code_img').attr('src',data.data.img);
-						that.sid=data.data.sid;
-						$('.change_identiy_code').data('bank',bank);
-					}
-				}
-			});
+			// $.ajax({
+			// 	url:globalConifg.baseUrl+globalConifg.api.getBankCode,
+			// 	type:'get',
+			// 	dataType:'json',
+			// 	data:{
+			// 		'bank':bank
+			// 	},
+			// 	async:false,
+			// 	success:function(data){
+			// 		if(data.success) {
+			// 			$('.identify_code_img').eq(n).attr('src',data.data.img);
+			// 			that.sid=data.data.sid;
+			// 			$('.change_identiy_code').data('bank',bank);
+						toStep(1);
+						if(bankStr) {
+							$('.slted-bank').html(bankStr);
+						}
+			// 		}
+			// 	}
+			// });
 		}
 	};
 	var identifyCode=new IdentifyCode();
@@ -620,7 +619,7 @@ $(function(){
 
 
 	//重新选择
-	$('#rechoseBank').on('click', function(e) {
+	$('.rechoseBank').on('click', function(e) {
 		e.preventDefault();
 		toStep($(this).data('pg'));
 	})
@@ -703,19 +702,6 @@ $(function(){
 		rules: {
 			bank: {
 				required: true
-			},
-			// password: {
-			// 	required: true
-			// },
-			// code: {
-			// 	required: true
-			// },
-			// card: {
-			// 	required: true,
-			// 	isBankCard:true
-			// },
-			agreement:{
-				required: true
 			}
 		},
 		showErrors:function(e){
@@ -734,17 +720,17 @@ $(function(){
 			$(element).addClass('error')
 		},
 		submitHandler: function () {
-			identifyCode.getBankIdentifyCode($('input[name="bank"]').val());
+			identifyCode.getBankIdentifyCode($('input[name="bank"]').val(), $('.bank_list .slt').html());
 		}
 	});
 	//卡号查询表单提交
-	var cardForm = $('.cardForm');
+	var cardForm = $('#cardForm');
 	cardForm.validate({
 		ignore: [],
 		rules: {
 			card: {
 				required: true,
-				isBankCard:true
+				// isBankCard:true
 			},
 			password: {
 				required: true
@@ -774,8 +760,8 @@ $(function(){
 		submitHandler: function () {
 
 			var postD = {
-				domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
-				bank: cardForm.find("input[name='bank']").val(),
+				// domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
+				bank: $("input[name='bank']").val(),
 				password: cardForm.find("input[name='password']").val(),
 				card:cardForm.find("input[name='card']").val().replace(/\s/g,''),
 				code: cardForm.find("input[name='code']").val(),
@@ -806,7 +792,7 @@ $(function(){
 		}
 	});
 	//一网通查询表单提交
-	var ywtForm = $('.ywtForm');
+	var ywtForm = $('#ywtForm');
 	ywtForm.validate({
 		ignore: [],
 		rules: {
@@ -841,61 +827,60 @@ $(function(){
 		submitHandler: function () {
 
 			var postD = {
-				domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
-				bank: ywtForm.find("input[name='bank']").val(),
+				// domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
+				bank: $("input[name='bank']").val(),
 				name: ywtForm.find("input[name='name']").val(),
+				name: ywtForm.find("input[name='password']").val(),
 				extra:ywtForm.find("input[name='extra']").val().replace(/\s/g,''),
 				code: ywtForm.find("input[name='code']").val(),
 				sid:identifyCode.sid
 			};
 			var progressCircle=null;
-			$.ajax({
-				url: globalConifg.baseUrl + globalConifg.api.customerQuery,
-				type: 'post',
-				contentType: "application/json",
-				data:JSON.stringify(postD),
-				dataType: 'json',
-				beforeSend:function(){
+			// $.ajax({
+			// 	url: globalConifg.baseUrl + globalConifg.api.customerQuery,
+			// 	type: 'post',
+			// 	contentType: "application/json",
+			// 	data:JSON.stringify(postD),
+			// 	dataType: 'json',
+			// 	beforeSend:function(){
 					progressCircle=new ProgressCircle();
-				},
-				success: function (repose) {
-					if(!repose.success){
-						progressCircle.goEnd(function(){
-							var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
-						})
-						return;
-					}
-					var data = repose.data;
-					if(data && (data.s == '2' || data.s == '3')) {
+				// },
+				// success: function (repose) {
+				// 	if(!repose.success){
+				// 		progressCircle.goEnd(function(){
+				// 			var messageBox=new MessageBox('发送失败！','请核对输入信息重新发送',"确定",2)
+				// 		})
+				// 		return;
+				// 	}
+				// 	var data = repose.data;
+				// 	if(data && (data.s == '2' || data.s == '3')) {
+						progressCircle.goEnd();
 						$('#conformDialog').removeClass('none');
 						$('.layer').show();
-						initBindPhone(data);
-						return;
-					}			
-					progressCircle.goEnd(function(){
-						var messageBox=new MessageBox('报告已发送“宜人贷”请等待审核',"确定",1)
-					})
-				}
-			})
+						// initBindPhone(data);
+						// return;
+			// 		}			
+			// 		progressCircle.goEnd(function(){
+			// 			var messageBox=new MessageBox('报告已发送“宜人贷”请等待审核',"确定",1)
+			// 		})
+			// 	}
+			// })
 		}
 	});
 	//手机验证码绑定
 	function initBindPhone(data) {
 		$('#phone').val(data.phone);
 		var codeWrap = $('#codeWrap');
-		$('#process').removeClass('sus').attr('style','');
 		if(data.code) {
 			codeWrap.removeClass('none');
 			codeWrap.find('img').attr('src', data.code);
-			$('.stsMsg .tips').html('正在获取报告');
-			$('.stsTip').html('可能需要2分钟');
 		}
 		else {
 			codeWrap.addClass('none');
 		}
 	}
 	//手机绑定
-	var cfmForm = $('.cfmForm');
+	var cfmForm = $('#cfmForm');
 	cfmForm.validate({
 		ignore: [],
 		rules: {
@@ -919,15 +904,19 @@ $(function(){
 			$(element).addClass('error')
 		},
 		submitHandler: function () {
-
+			var code = cfmForm.find('input[name="code"]');
 			var postD = {
-				domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
-				bank: cfmForm.find("input[name='bank']").val(),
-				name: cfmForm.find("input[name='name']").val(),
-				extra:cfmForm.find("input[name='extra']").val().replace(/\s/g,''),
-				code: cfmForm.find("input[name='code']").val(),
+				// domain:window.location.href.split('/dola/pers/')[1].split('?')[0],
+				bank: $("input[name='bank']").val(),
+				phoneCode: cfmForm.find("input[name='phoneCode']").val(),
+				code: code.val(),
 				sid:identifyCode.sid
 			};
+			if( !code.parents('.codeWrap').hasClass('none') && !code.val()) {
+				cfmForm.find('.error_container').show();
+				return;
+			}
+
 			var progressCircle=null;
 			$.ajax({
 				url: globalConifg.baseUrl + globalConifg.api.customerQuery,
@@ -945,19 +934,17 @@ $(function(){
 						})
 						return;
 					}
-					var data = repose.data;
-					if(data && (data.s == '2' || data.s == '3')) {
-						$('#conformDialog').removeClass('none');
-						$('.layer').show();
-						initBindPhone(data);
-						return;
-					}			
 					progressCircle.goEnd(function(){
 						var messageBox=new MessageBox('报告已发送“宜人贷”请等待审核',"确定",1)
 					})
 				}
 			})
 		}
+	});
+	//关闭浮层
+	$('.conform-close').on('click', function() {
+		$('#conformDialog').removeClass('none');
+		$('.layer').hide();
 	});
 	var bankList=new BankList();
 })

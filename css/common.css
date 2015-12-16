@@ -179,7 +179,7 @@ body{
 }
 .login_n_regist{
 	float:left;
-	width:50%;
+	width:15%;
 }
 .login_n_regist a{
 	color:#666;
@@ -190,7 +190,7 @@ body{
 }
 .nav_extra{
 	float:right;
-	width:50%;
+	width:85%;
 	text-align:right;
 }
 .third_party_opts{
