@@ -37,22 +37,22 @@ function IsLogin(){
 IsLogin.prototype={
 	status:function(){
 		var loginData={};
-		// $.ajax({
-		// 	url:globalConifg.baseUrl+globalConifg.api.login.islogin,
-		// 	type:'post',
-		// 	dataType:'json',
-		// 	async:false,
-		// 	cache:false,
-		// 	success:function(data){
-		// 		if(data.success){
+		$.ajax({
+			url:globalConifg.baseUrl+globalConifg.api.login.islogin,
+			type:'post',
+			dataType:'json',
+			async:false,
+			cache:false,
+			success:function(data){
+				if(data.success){
 					loginData.success=true;
-					// loginData.email=data.data;
+					loginData.email=data.data;
 					loginData.email='assa';  //mock
-		// 		}else{
-		// 			loginData.success=false;
-		// 		}
-		// 	}
-		// });
+				}else{
+					loginData.success=false;
+				}
+			}
+		});
 		return loginData;
 	}()
 };
